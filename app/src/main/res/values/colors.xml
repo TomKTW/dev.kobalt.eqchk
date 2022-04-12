@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="primary">@color/brown</color>
+    <color name="brown_light">#A18600</color>
+    <color name="brown">#A86B00</color>
+    <color name="brown_dark">#492500</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <color name="gray">#aaaaaa</color>
+    <color name="green">#00ff00</color>
+    <color name="yellow">#ffff00</color>
+    <color name="orange">#ff4400</color>
+    <color name="red">#ff0000</color>
+
+    <color name="intensity_1">#FFFFFF</color>
+    <color name="intensity_2">#bfccff</color>
+    <color name="intensity_3">#A2ADD0</color>
+    <color name="intensity_4">#8ff</color>
+    <color name="intensity_5">#7df894</color>
+    <color name="intensity_6">#ff0</color>
+    <color name="intensity_7">#fd0</color>
+    <color name="intensity_8">#ff9100</color>
+    <color name="intensity_9">#f00</color>
+    <color name="intensity_10">#d00</color>
+    <color name="intensity_11">#800</color>
+    <color name="intensity_12">#400</color>
+</resources>
