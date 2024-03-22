@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="utf-8"?>
+<dev.kobalt.earthquakecheck.android.view.StackView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <dev.kobalt.earthquakecheck.android.view.StackView
+        android:id="@+id/headerStack"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="@color/primary"
+        android:elevation="8dp"
+        android:orientation="horizontal">
+
+        <dev.kobalt.earthquakecheck.android.view.ImageButtonView
+            android:id="@+id/headerBackButton"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:padding="16dp"
+            app:srcCompat="@drawable/ic_baseline_arrow_back_24"
+            app:tint="@color/white" />
+
+        <dev.kobalt.earthquakecheck.android.view.LabelView
+            android:id="@+id/headerTitleLabel"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="start|center"
+            android:text="Details"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+        <dev.kobalt.earthquakecheck.android.view.ImageView
+            android:id="@+id/headerDetailsButton"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:padding="16dp"
+            app:srcCompat="@drawable/ic_baseline_open_in_browser_24"
+            app:tint="@color/white" />
+
+    </dev.kobalt.earthquakecheck.android.view.StackView>
+
+
+    <dev.kobalt.earthquakecheck.android.view.FrameView
+        android:id="@+id/detailsContainer"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <dev.kobalt.earthquakecheck.android.view.StackView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <dev.kobalt.earthquakecheck.android.view.EventCardView
+                    android:id="@+id/detailsEventCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <dev.kobalt.earthquakecheck.android.view.StackView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <dev.kobalt.earthquakecheck.android.view.ImageView
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        app:srcCompat="@drawable/ic_baseline_map_24"
+                        app:tint="@color/black" />
+
+                    <dev.kobalt.earthquakecheck.android.view.SpaceView
+                        android:layout_width="4dp"
+                        android:layout_height="match_parent" />
+
+                    <dev.kobalt.earthquakecheck.android.view.LabelView
+                        android:id="@+id/detailsCoordinatesLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="start"
+                        android:textColor="@color/black"
+                        tools:text="detailsCoordinatesLabel" />
+
+                    <dev.kobalt.earthquakecheck.android.view.SpaceView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1" />
+
+                    <dev.kobalt.earthquakecheck.android.view.ImageView
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        app:srcCompat="@drawable/ic_baseline_south_24"
+                        app:tint="@color/black" />
+
+                    <dev.kobalt.earthquakecheck.android.view.SpaceView
+                        android:layout_width="4dp"
+                        android:layout_height="match_parent" />
+
+                    <dev.kobalt.earthquakecheck.android.view.LabelView
+                        android:id="@+id/depthLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="start"
+                        android:textColor="@color/black"
+                        tools:text="depthLabel" />
+                </dev.kobalt.earthquakecheck.android.view.StackView>
+
+                <dev.kobalt.earthquakecheck.android.view.StackView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:orientation="vertical">
+
+                    <dev.kobalt.earthquakecheck.android.view.StackView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <dev.kobalt.earthquakecheck.android.view.LabelView
+                            android:id="@+id/estimatedIntensityTitleLabel"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="start"
+                            android:text="Estimated Intensity"
+                            android:textColor="@color/black" />
+
+                        <dev.kobalt.earthquakecheck.android.view.LabelView
+                            android:id="@+id/estimatedIntensityValueLabel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="start"
+                            android:text="-"
+                            android:textColor="@color/black" />
+
+                    </dev.kobalt.earthquakecheck.android.view.StackView>
+
+                    <dev.kobalt.earthquakecheck.android.view.SpaceView
+                        android:layout_width="match_parent"
+                        android:layout_height="4dp" />
+
+                    <dev.kobalt.earthquakecheck.android.view.EventIntensityScaleView
+                        android:id="@+id/estimatedIntensityScale"
+                        android:layout_width="match_parent"
+                        android:layout_height="28dp" />
+
+
+                </dev.kobalt.earthquakecheck.android.view.StackView>
+
+                <dev.kobalt.earthquakecheck.android.view.StackView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:orientation="vertical">
+
+                    <dev.kobalt.earthquakecheck.android.view.StackView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <dev.kobalt.earthquakecheck.android.view.LabelView
+                            android:id="@+id/communityIntensityTitleLabel"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="start"
+                            android:text="Community Intensity"
+                            android:textColor="@color/black" />
+
+                        <dev.kobalt.earthquakecheck.android.view.LabelView
+                            android:id="@+id/communityIntensityValueLabel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="start"
+                            android:text="-"
+                            android:textColor="@color/black" />
+
+                    </dev.kobalt.earthquakecheck.android.view.StackView>
+
+                    <dev.kobalt.earthquakecheck.android.view.SpaceView
+                        android:layout_width="match_parent"
+                        android:layout_height="4dp" />
+
+                    <dev.kobalt.earthquakecheck.android.view.EventIntensityScaleView
+                        android:id="@+id/communityIntensityScale"
+                        android:layout_width="match_parent"
+                        android:layout_height="28dp" />
+
+                </dev.kobalt.earthquakecheck.android.view.StackView>
+
+                <dev.kobalt.earthquakecheck.android.view.LabelView
+                    android:id="@+id/tectonicSummaryLabel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:gravity="start"
+                    android:textColor="@color/black"
+                    tools:text="tectonicSummaryLabel" />
+
+                <dev.kobalt.earthquakecheck.android.view.LabelView
+                    android:id="@+id/impactSummaryLabel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:gravity="start"
+                    android:textColor="@color/black"
+                    tools:text="impactSummaryLabel" />
+
+            </dev.kobalt.earthquakecheck.android.view.StackView>
+
+        </androidx.core.widget.NestedScrollView>
+
+    </dev.kobalt.earthquakecheck.android.view.FrameView>
+
+    <dev.kobalt.earthquakecheck.android.view.FrameView
+        android:id="@+id/mapContainer"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <dev.kobalt.earthquakecheck.android.details.DetailsMapView
+            android:id="@+id/mapMap"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </dev.kobalt.earthquakecheck.android.view.FrameView>
+
+    <dev.kobalt.earthquakecheck.android.view.StackView
+        android:id="@+id/footerStack"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="@color/primary"
+        android:elevation="8dp"
+        android:orientation="horizontal">
+
+        <dev.kobalt.earthquakecheck.android.view.ImageButtonView
+            android:id="@+id/footerDetailsButton"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:padding="16dp"
+            android:src="@drawable/ic_baseline_list_alt_24"
+            android:tint="@color/white" />
+
+        <dev.kobalt.earthquakecheck.android.view.ImageButtonView
+            android:id="@+id/footerMapButton"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:padding="16dp"
+            android:src="@drawable/ic_baseline_map_24"
+            android:tint="@color/white" />
+
+    </dev.kobalt.earthquakecheck.android.view.StackView>
+
+</dev.kobalt.earthquakecheck.android.view.StackView>

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<dev.kobalt.earthquakecheck.android.view.FrameView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <dev.kobalt.earthquakecheck.android.view.StackView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <dev.kobalt.earthquakecheck.android.view.LabelView
+            android:id="@+id/magnitudeLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:textSize="40sp"
+            tools:text="#.#" />
+
+        <dev.kobalt.earthquakecheck.android.view.StackView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="8dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <dev.kobalt.earthquakecheck.android.view.StackView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <dev.kobalt.earthquakecheck.android.view.ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    app:srcCompat="@drawable/ic_baseline_access_time_24"
+                    app:tint="@color/black" />
+
+                <dev.kobalt.earthquakecheck.android.view.SpaceView
+                    android:layout_width="4dp"
+                    android:layout_height="match_parent" />
+
+                <dev.kobalt.earthquakecheck.android.view.LabelView
+                    android:id="@+id/timeLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="start"
+                    android:textColor="@color/black"
+                    tools:text="timeLabel" />
+
+                <dev.kobalt.earthquakecheck.android.view.SpaceView
+                    android:layout_width="16dp"
+                    android:layout_height="match_parent" />
+
+                <dev.kobalt.earthquakecheck.android.view.ImageView
+                    android:id="@+id/distanceImage"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    app:srcCompat="@drawable/ic_baseline_near_me_24"
+                    app:tint="@color/black" />
+
+                <dev.kobalt.earthquakecheck.android.view.SpaceView
+                    android:layout_width="4dp"
+                    android:layout_height="match_parent" />
+
+                <dev.kobalt.earthquakecheck.android.view.LabelView
+                    android:id="@+id/distanceLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="start"
+                    android:textColor="@color/black"
+                    tools:text="distanceLabel" />
+
+                <dev.kobalt.earthquakecheck.android.view.SpaceView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+
+            </dev.kobalt.earthquakecheck.android.view.StackView>
+
+            <dev.kobalt.earthquakecheck.android.view.SpaceView
+                android:layout_width="match_parent"
+                android:layout_height="2dp" />
+
+            <dev.kobalt.earthquakecheck.android.view.StackView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <dev.kobalt.earthquakecheck.android.view.ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    app:srcCompat="@drawable/ic_baseline_location_on_24"
+                    app:tint="@color/black" />
+
+                <dev.kobalt.earthquakecheck.android.view.SpaceView
+                    android:layout_width="4dp"
+                    android:layout_height="match_parent" />
+
+                <dev.kobalt.earthquakecheck.android.view.LabelView
+                    android:id="@+id/locationLabel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="start"
+                    android:textColor="@color/black"
+                    tools:text="locationLabel" />
+
+            </dev.kobalt.earthquakecheck.android.view.StackView>
+
+        </dev.kobalt.earthquakecheck.android.view.StackView>
+    </dev.kobalt.earthquakecheck.android.view.StackView>
+
+    <dev.kobalt.earthquakecheck.android.view.FrameView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:alpha="0.5"
+        android:background="@color/black" />
+
+</dev.kobalt.earthquakecheck.android.view.FrameView>

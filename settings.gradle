@@ -13,5 +13,5 @@ dependencyResolutionManagement {
         maven { url "https://jitpack.io" }
     }
 }
-rootProject.name = "earthquakecheck"
-include ':app'
+rootProject.name = "eqchk"
+include ':android'
