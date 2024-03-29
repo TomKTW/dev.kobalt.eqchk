@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<dev.kobalt.earthquakecheck.android.view.StackView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+<dev.kobalt.eqchk.android.view.StackView xmlns:android="http://schemas.android.com/apk/res/android"
+                                         xmlns:app="http://schemas.android.com/apk/res-auto"
+                                         android:layout_width="match_parent"
+                                         android:layout_height="match_parent"
+                                         android:orientation="vertical">
 
-    <dev.kobalt.earthquakecheck.android.view.StackView
+    <dev.kobalt.eqchk.android.view.StackView
         android:id="@+id/headerStack"
         android:layout_width="match_parent"
         android:layout_height="56dp"
@@ -13,11 +13,11 @@
         android:elevation="8dp"
         android:orientation="horizontal">
 
-        <dev.kobalt.earthquakecheck.android.view.SpaceView
+        <dev.kobalt.eqchk.android.view.SpaceView
             android:layout_width="16dp"
             android:layout_height="match_parent" />
 
-        <dev.kobalt.earthquakecheck.android.view.LabelView
+        <dev.kobalt.eqchk.android.view.LabelView
             android:id="@+id/headerTitleLabel"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -27,7 +27,7 @@
             android:textColor="@color/white"
             android:textSize="20sp" />
 
-        <dev.kobalt.earthquakecheck.android.view.ImageButtonView
+        <dev.kobalt.eqchk.android.view.ImageButtonView
             android:id="@+id/mapToggleButton"
             android:layout_width="56dp"
             android:layout_height="56dp"
@@ -35,7 +35,7 @@
             app:srcCompat="@drawable/ic_baseline_track_changes_24"
             app:tint="@color/white" />
 
-        <dev.kobalt.earthquakecheck.android.view.ImageButtonView
+        <dev.kobalt.eqchk.android.view.ImageButtonView
             android:id="@+id/headerSearchButton"
             android:layout_width="56dp"
             android:layout_height="56dp"
@@ -43,7 +43,7 @@
             app:srcCompat="@drawable/ic_baseline_search_24"
             app:tint="@color/white" />
 
-    </dev.kobalt.earthquakecheck.android.view.StackView>
+    </dev.kobalt.eqchk.android.view.StackView>
 
     <include
         android:id="@+id/mapContainer"
@@ -70,7 +70,7 @@
         android:visibility="gone" />
 
 
-    <dev.kobalt.earthquakecheck.android.view.StackView
+    <dev.kobalt.eqchk.android.view.StackView
         android:id="@+id/footerStack"
         android:layout_width="match_parent"
         android:layout_height="56dp"
@@ -78,7 +78,7 @@
         android:elevation="8dp"
         android:orientation="horizontal">
 
-        <dev.kobalt.earthquakecheck.android.view.ImageView
+        <dev.kobalt.eqchk.android.view.ImageView
             android:id="@+id/footerMapButton"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -87,7 +87,7 @@
             android:src="@drawable/ic_baseline_map_24"
             android:tint="@color/white" />
 
-        <dev.kobalt.earthquakecheck.android.view.ImageView
+        <dev.kobalt.eqchk.android.view.ImageView
             android:id="@+id/footerListButton"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -96,7 +96,7 @@
             android:src="@drawable/ic_baseline_list_alt_24"
             android:tint="@color/white" />
 
-        <dev.kobalt.earthquakecheck.android.view.ImageView
+        <dev.kobalt.eqchk.android.view.ImageView
             android:id="@+id/footerOptionsButton"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -105,6 +105,6 @@
             android:src="@drawable/ic_baseline_settings_24"
             android:tint="@color/white" />
 
-    </dev.kobalt.earthquakecheck.android.view.StackView>
+    </dev.kobalt.eqchk.android.view.StackView>
 
-</dev.kobalt.earthquakecheck.android.view.StackView>
+</dev.kobalt.eqchk.android.view.StackView>

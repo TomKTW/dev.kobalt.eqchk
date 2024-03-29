@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<dev.kobalt.earthquakecheck.android.view.StackView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+<dev.kobalt.eqchk.android.view.StackView xmlns:android="http://schemas.android.com/apk/res/android"
+                                         xmlns:app="http://schemas.android.com/apk/res-auto"
+                                         android:layout_width="match_parent"
+                                         android:layout_height="match_parent"
+                                         android:orientation="vertical">
 
-    <dev.kobalt.earthquakecheck.android.view.StackView
+    <dev.kobalt.eqchk.android.view.StackView
         android:id="@+id/headerStack"
         android:layout_width="match_parent"
         android:layout_height="56dp"
@@ -13,11 +13,11 @@
         android:elevation="8dp"
         android:orientation="horizontal">
 
-        <dev.kobalt.earthquakecheck.android.view.SpaceView
+        <dev.kobalt.eqchk.android.view.SpaceView
             android:layout_width="16dp"
             android:layout_height="match_parent" />
 
-        <dev.kobalt.earthquakecheck.android.view.LabelView
+        <dev.kobalt.eqchk.android.view.LabelView
             android:id="@+id/headerTitleLabel"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -27,7 +27,7 @@
             android:textColor="@color/white"
             android:textSize="20sp" />
 
-        <dev.kobalt.earthquakecheck.android.view.ImageButtonView
+        <dev.kobalt.eqchk.android.view.ImageButtonView
             android:id="@+id/headerSearchButton"
             android:layout_width="56dp"
             android:layout_height="56dp"
@@ -35,35 +35,35 @@
             app:srcCompat="@drawable/ic_baseline_filter_list_24"
             app:tint="@color/white" />
 
-    </dev.kobalt.earthquakecheck.android.view.StackView>
+    </dev.kobalt.eqchk.android.view.StackView>
 
-    <dev.kobalt.earthquakecheck.android.view.StackView
+    <dev.kobalt.eqchk.android.view.StackView
         android:id="@+id/formContainer"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:orientation="vertical">
 
-        <dev.kobalt.earthquakecheck.android.view.VerticalScrollView
+        <dev.kobalt.eqchk.android.view.VerticalScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1">
 
-            <dev.kobalt.earthquakecheck.android.view.StackView
+            <dev.kobalt.eqchk.android.view.StackView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <dev.kobalt.earthquakecheck.android.view.SpaceView
+                <dev.kobalt.eqchk.android.view.SpaceView
                     android:layout_width="match_parent"
                     android:layout_height="8dp" />
 
-                <dev.kobalt.earthquakecheck.android.view.StackView
+                <dev.kobalt.eqchk.android.view.StackView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                    <dev.kobalt.earthquakecheck.android.view.LabelView
+                    <dev.kobalt.eqchk.android.view.LabelView
                         android:id="@+id/magnitudeTitleLabel"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -71,12 +71,12 @@
                         android:layout_marginEnd="8dp"
                         android:text="Magnitude (M)" />
 
-                    <dev.kobalt.earthquakecheck.android.view.SpaceView
+                    <dev.kobalt.eqchk.android.view.SpaceView
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1" />
 
-                    <dev.kobalt.earthquakecheck.android.view.LabelView
+                    <dev.kobalt.eqchk.android.view.LabelView
                         android:id="@+id/magnitudeValueLabel"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -84,9 +84,9 @@
                         android:layout_marginEnd="8dp"
                         android:text="-" />
 
-                </dev.kobalt.earthquakecheck.android.view.StackView>
+                </dev.kobalt.eqchk.android.view.StackView>
 
-                <dev.kobalt.earthquakecheck.android.view.RangeInputView
+                <dev.kobalt.eqchk.android.view.RangeInputView
                     android:id="@+id/magnitudeInput"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -94,12 +94,12 @@
                     android:valueFrom="1.0"
                     android:valueTo="10.0" />
 
-                <dev.kobalt.earthquakecheck.android.view.StackView
+                <dev.kobalt.eqchk.android.view.StackView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                    <dev.kobalt.earthquakecheck.android.view.LabelView
+                    <dev.kobalt.eqchk.android.view.LabelView
                         android:id="@+id/estimatedIntensityTitleLabel"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -107,12 +107,12 @@
                         android:layout_marginEnd="8dp"
                         android:text="Estimated Intensity (MMI)" />
 
-                    <dev.kobalt.earthquakecheck.android.view.SpaceView
+                    <dev.kobalt.eqchk.android.view.SpaceView
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1" />
 
-                    <dev.kobalt.earthquakecheck.android.view.LabelView
+                    <dev.kobalt.eqchk.android.view.LabelView
                         android:id="@+id/estimatedIntensityValueLabel"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -120,10 +120,10 @@
                         android:layout_marginEnd="8dp"
                         android:text="-" />
 
-                </dev.kobalt.earthquakecheck.android.view.StackView>
+                </dev.kobalt.eqchk.android.view.StackView>
 
 
-                <dev.kobalt.earthquakecheck.android.view.RangeInputView
+                <dev.kobalt.eqchk.android.view.RangeInputView
                     android:id="@+id/estimatedIntensityInput"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -131,12 +131,12 @@
                     android:valueFrom="0.0"
                     android:valueTo="12.0" />
 
-                <dev.kobalt.earthquakecheck.android.view.StackView
+                <dev.kobalt.eqchk.android.view.StackView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                    <dev.kobalt.earthquakecheck.android.view.LabelView
+                    <dev.kobalt.eqchk.android.view.LabelView
                         android:id="@+id/communityIntensityTitleLabel"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -144,12 +144,12 @@
                         android:layout_marginEnd="8dp"
                         android:text="Community Intensity (MMI)" />
 
-                    <dev.kobalt.earthquakecheck.android.view.SpaceView
+                    <dev.kobalt.eqchk.android.view.SpaceView
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1" />
 
-                    <dev.kobalt.earthquakecheck.android.view.LabelView
+                    <dev.kobalt.eqchk.android.view.LabelView
                         android:id="@+id/communityIntensityValueLabel"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -157,9 +157,9 @@
                         android:layout_marginEnd="8dp"
                         android:text="-" />
 
-                </dev.kobalt.earthquakecheck.android.view.StackView>
+                </dev.kobalt.eqchk.android.view.StackView>
 
-                <dev.kobalt.earthquakecheck.android.view.RangeInputView
+                <dev.kobalt.eqchk.android.view.RangeInputView
                     android:id="@+id/communityIntensityInput"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -167,12 +167,12 @@
                     android:valueFrom="0.0"
                     android:valueTo="12.0" />
 
-                <dev.kobalt.earthquakecheck.android.view.StackView
+                <dev.kobalt.eqchk.android.view.StackView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                    <dev.kobalt.earthquakecheck.android.view.LabelView
+                    <dev.kobalt.eqchk.android.view.LabelView
                         android:id="@+id/depthTitleLabel"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -180,12 +180,12 @@
                         android:layout_marginEnd="8dp"
                         android:text="Depth (km)" />
 
-                    <dev.kobalt.earthquakecheck.android.view.SpaceView
+                    <dev.kobalt.eqchk.android.view.SpaceView
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1" />
 
-                    <dev.kobalt.earthquakecheck.android.view.LabelView
+                    <dev.kobalt.eqchk.android.view.LabelView
                         android:id="@+id/depthValueLabel"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -193,9 +193,9 @@
                         android:layout_marginEnd="8dp"
                         android:text="-" />
 
-                </dev.kobalt.earthquakecheck.android.view.StackView>
+                </dev.kobalt.eqchk.android.view.StackView>
 
-                <dev.kobalt.earthquakecheck.android.view.RangeInputView
+                <dev.kobalt.eqchk.android.view.RangeInputView
                     android:id="@+id/depthInput"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -203,7 +203,7 @@
                     android:valueFrom="-100.0"
                     android:valueTo="1000.0" />
 
-                <dev.kobalt.earthquakecheck.android.view.LabelView
+                <dev.kobalt.eqchk.android.view.LabelView
                     android:id="@+id/timestampTitleLabel"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -211,7 +211,7 @@
                     android:layout_marginEnd="8dp"
                     android:text="Timestamp" />
 
-                <dev.kobalt.earthquakecheck.android.view.LabelButtonView
+                <dev.kobalt.eqchk.android.view.LabelButtonView
                     android:id="@+id/timestampSetButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -222,11 +222,11 @@
                     android:text="Set"
                     android:textColor="@color/white" />
 
-            </dev.kobalt.earthquakecheck.android.view.StackView>
+            </dev.kobalt.eqchk.android.view.StackView>
 
-        </dev.kobalt.earthquakecheck.android.view.VerticalScrollView>
+        </dev.kobalt.eqchk.android.view.VerticalScrollView>
 
-        <dev.kobalt.earthquakecheck.android.view.LabelButtonView
+        <dev.kobalt.eqchk.android.view.LabelButtonView
             android:id="@+id/submitButton"
             android:layout_width="match_parent"
             android:layout_height="56dp"
@@ -236,20 +236,20 @@
             android:text="Submit"
             android:textColor="@color/white" />
 
-    </dev.kobalt.earthquakecheck.android.view.StackView>
+    </dev.kobalt.eqchk.android.view.StackView>
 
-    <dev.kobalt.earthquakecheck.android.view.RefreshView
+    <dev.kobalt.eqchk.android.view.RefreshView
         android:id="@+id/listContainer"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:visibility="gone">
 
-        <dev.kobalt.earthquakecheck.android.home.HomeListRecyclerView
+        <dev.kobalt.eqchk.android.home.HomeListRecyclerView
             android:id="@+id/listRecycler"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
-    </dev.kobalt.earthquakecheck.android.view.RefreshView>
+    </dev.kobalt.eqchk.android.view.RefreshView>
 
-</dev.kobalt.earthquakecheck.android.view.StackView>
+</dev.kobalt.eqchk.android.view.StackView>
