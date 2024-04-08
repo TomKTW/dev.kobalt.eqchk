@@ -1,14 +1,20 @@
 package dev.kobalt.eqchk.android.search
 
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
+import dev.kobalt.eqchk.android.base.BaseViewModel
 import dev.kobalt.eqchk.android.event.EventEntity
+import dev.kobalt.eqchk.android.event.EventRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.launch
 import java.time.LocalDateTime
+import javax.inject.Inject
 
-class SearchViewModel : ViewModel() {
+@HiltViewModel
+class SearchViewModel @Inject constructor(
+    private val eventRepository: EventRepository,
+) : BaseViewModel() {
 
     var formMinMagnitude: Double? = null
     var formMaxMagnitude: Double? = null
@@ -25,16 +31,17 @@ class SearchViewModel : ViewModel() {
         viewModelScope.launch { emit(emptyList()) }
     }
 
-    val loadState = MutableSharedFlow<SearchSubmitUseCase.State>(1).apply {
-        viewModelScope.launch { emit(SearchSubmitUseCase.State.Ready) }
+    val loadState = MutableSharedFlow<SearchSubmitViewState>(1).apply {
+        viewModelScope.launch { emit(SearchSubmitViewState.Ready) }
     }
 
     fun load() {
-        if (loadState.replayCache.firstOrNull() == SearchSubmitUseCase.State.Ready) {
+        if (loadState.replayCache.firstOrNull() == SearchSubmitViewState.Ready) {
             viewModelScope.launch(Dispatchers.IO) {
                 dataState.emit(emptyList())
-                loadState.emit(SearchSubmitUseCase.State.Loading)
-                loadState.emit(SearchSubmitUseCase.execute(
+                loadState.emit(SearchSubmitViewState.Loading)
+                loadState.emit(
+                    execute(
                     formMinMagnitude?.toInt(),
                     formMaxMagnitude?.toInt(),
                     formMinEstimatedIntensity?.toInt(),
@@ -50,14 +57,49 @@ class SearchViewModel : ViewModel() {
                     null
                 ).also {
                     when (it) {
-                        is SearchSubmitUseCase.State.Result.Success -> dataState.emit(it.data)
+                        is SearchSubmitViewState.Result.Success -> dataState.emit(it.data)
                         else -> dataState.emit(mutableListOf())
                     }
                 })
-                loadState.emit(SearchSubmitUseCase.State.Ready)
+                loadState.emit(SearchSubmitViewState.Ready)
             }
         }
     }
+
+
+    suspend fun execute(
+        minMagnitude: Int?,
+        maxMagnitude: Int?,
+        minEstimatedIntensity: Int?,
+        maxEstimatedIntensity: Int?,
+        minCommunityIntensity: Int?,
+        maxCommunityIntensity: Int?,
+        minDepth: Int?,
+        maxDepth: Int?,
+        minTimestamp: LocalDateTime?,
+        maxTimestamp: LocalDateTime?,
+        latitude: Double?,
+        longitude: Double?,
+        range: Double?
+    ): SearchSubmitViewState.Result = runCatching {
+        SearchSubmitViewState.Result.Success(
+            eventRepository.fetch(
+                minMagnitude,
+                maxMagnitude,
+                minEstimatedIntensity,
+                maxEstimatedIntensity,
+                minCommunityIntensity,
+                maxCommunityIntensity,
+                minDepth,
+                maxDepth,
+                minTimestamp,
+                maxTimestamp,
+                latitude,
+                longitude,
+                range
+            )
+        )
+    }.getOrElse { it.printStackTrace(); SearchSubmitViewState.Result.Failure }
 
 }
 

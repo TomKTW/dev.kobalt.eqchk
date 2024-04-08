@@ -1,5 +1,6 @@
 package dev.kobalt.eqchk.android.component
 
+import android.annotation.SuppressLint
 import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -9,14 +10,18 @@ import android.content.Intent
 import android.os.Build
 import androidx.core.app.NotificationCompat
 import dev.kobalt.eqchk.android.R
+import dev.kobalt.eqchk.android.base.BaseContext
 import dev.kobalt.eqchk.android.event.EventEntity
 import dev.kobalt.eqchk.android.main.MainActivity
-import dev.kobalt.eqchk.android.main.MainApplication
 import java.math.RoundingMode
 
-class NotificationManager(private val application: MainApplication) {
+class NotificationManager(
+    private val context: Context
+) : BaseContext {
 
-    val native get() = application.native.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+    override fun requestContext(): Context = context.applicationContext
+
+    val native get() = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
     init {
         createLatestChannel()
@@ -32,7 +37,7 @@ class NotificationManager(private val application: MainApplication) {
             native.createNotificationChannel(
                 NotificationChannel(
                     lastChannelId,
-                    application.getResourceString(R.string.notification_latest_channel_title),
+                    getResourceString(R.string.notification_latest_channel_title),
                     NotificationManager.IMPORTANCE_DEFAULT
                 ).apply {
                     enableVibration(true)
@@ -43,15 +48,16 @@ class NotificationManager(private val application: MainApplication) {
         }
     }
 
+    @SuppressLint("NotificationPermission")
     fun showLatest(event: EventEntity) {
-        val resultIntent = Intent(application.native, MainActivity::class.java).apply {
+        val resultIntent = Intent(context, MainActivity::class.java).apply {
             putExtra(MainActivity.lastIdKey, event.id)
             flags = (Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
             action = Intent.ACTION_MAIN
             addCategory(Intent.CATEGORY_LAUNCHER)
         }
         val resultPendingIntent = PendingIntent.getActivity(
-            application.native,
+            context,
             0,
             resultIntent,
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -62,9 +68,9 @@ class NotificationManager(private val application: MainApplication) {
         )
         native.notify(
             lastId,
-            NotificationCompat.Builder(application.native, lastChannelId)
+            NotificationCompat.Builder(context, lastChannelId)
                 .setContentTitle(
-                    application.getResourceString(
+                    getResourceString(
                         R.string.notification_latest_title,
                         event.magnitude?.setScale(1, RoundingMode.HALF_EVEN).toString()
                     )

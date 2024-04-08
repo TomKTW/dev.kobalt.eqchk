@@ -1,15 +1,18 @@
 package dev.kobalt.eqchk.android.component
 
+import android.content.Context
 import androidx.preference.PreferenceManager
+import dev.kobalt.eqchk.android.base.BaseContext
 import dev.kobalt.eqchk.android.extension.toLocalDateTime
 import dev.kobalt.eqchk.android.extension.toString
-import dev.kobalt.eqchk.android.main.MainApplication
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
-class Preferences(private val application: MainApplication) {
+class Preferences(private val context: Context) : BaseContext {
 
-    val native get() = PreferenceManager.getDefaultSharedPreferences(application.native)!!
+    override fun requestContext(): Context = context.applicationContext
+
+    val native get() = PreferenceManager.getDefaultSharedPreferences(context)!!
 
     var lastListLoadTimestamp: LocalDateTime?
         get() = get("lastListLoadTimestamp")

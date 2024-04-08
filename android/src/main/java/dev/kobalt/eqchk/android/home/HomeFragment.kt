@@ -11,6 +11,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
+import dagger.hilt.android.AndroidEntryPoint
 import dev.kobalt.eqchk.android.R
 import dev.kobalt.eqchk.android.animation.SlideAnimation
 import dev.kobalt.eqchk.android.base.BaseFragment
@@ -18,6 +19,7 @@ import dev.kobalt.eqchk.android.databinding.HomeBinding
 import kotlinx.coroutines.launch
 import org.osmdroid.util.GeoPoint
 
+@AndroidEntryPoint
 class HomeFragment : BaseFragment<HomeBinding>() {
 
     private val viewModel: HomeViewModel by viewModels()
@@ -66,7 +68,7 @@ class HomeFragment : BaseFragment<HomeBinding>() {
         viewLifecycleScope.launchWhenCreated {
             viewModel.loadState.collect {
                 viewBinding?.apply {
-                    listContainer.root.isRefreshing = it is HomeLoadUseCase.State.Loading
+                    listContainer.root.isRefreshing = it is HomeLoadViewState.Loading
                 }
             }
         }
@@ -141,12 +143,12 @@ class HomeFragment : BaseFragment<HomeBinding>() {
                 requestPermissionsButton.apply {
                     titleLabel.text = getResourceString(R.string.options_location_title)
                     subtitleLabel.text = getResourceString(R.string.options_location_subtitle)
-                    optionSwitch.isChecked = application.preferences.locationPositionEnabled == true
+                    optionSwitch.isChecked = viewModel.locationPositionEnabled == true
                     setOnClickListener {
                         if (arePermissionsGranted(Manifest.permission.ACCESS_FINE_LOCATION)) {
                             viewModel.toggleLocation()
                             optionSwitch.isChecked =
-                                application.preferences.locationPositionEnabled == true
+                                viewModel.locationPositionEnabled == true
                         } else {
                             locationPermissionRequest.launch(Manifest.permission.ACCESS_FINE_LOCATION)
                         }
@@ -155,10 +157,10 @@ class HomeFragment : BaseFragment<HomeBinding>() {
                 toggleNotificationButton.apply {
                     titleLabel.text = getResourceString(R.string.options_latest_title)
                     subtitleLabel.text = getResourceString(R.string.options_latest_subtitle)
-                    optionSwitch.isChecked = application.preferences.latestLoadEnabled == true
+                    optionSwitch.isChecked = viewModel.latestLoadEnabled == true
                     setOnClickListener {
                         viewModel.toggleNotifications()
-                        optionSwitch.isChecked = application.preferences.latestLoadEnabled == true
+                        optionSwitch.isChecked = viewModel.latestLoadEnabled == true
                     }
                 }
             }

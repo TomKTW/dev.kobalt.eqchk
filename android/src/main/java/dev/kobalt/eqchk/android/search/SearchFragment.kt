@@ -9,6 +9,7 @@ import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointBackward
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.slider.RangeSlider
+import dagger.hilt.android.AndroidEntryPoint
 import dev.kobalt.eqchk.android.base.BaseFragment
 import dev.kobalt.eqchk.android.databinding.SearchBinding
 import dev.kobalt.eqchk.android.extension.toString
@@ -17,7 +18,7 @@ import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.ZoneOffset
 
-
+@AndroidEntryPoint
 class SearchFragment : BaseFragment<SearchBinding>() {
 
     val viewModel: SearchViewModel by viewModels()

@@ -1,15 +1,35 @@
 package dev.kobalt.eqchk.android.home
 
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import dev.kobalt.eqchk.android.base.BaseViewModel
+import dev.kobalt.eqchk.android.component.LocationManager
+import dev.kobalt.eqchk.android.component.NotificationManager
+import dev.kobalt.eqchk.android.component.Preferences
+import dev.kobalt.eqchk.android.component.WorkManager
 import dev.kobalt.eqchk.android.event.EventEntity
+import dev.kobalt.eqchk.android.event.EventRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.launch
+import java.time.LocalDateTime
+import java.time.ZoneId
+import javax.inject.Inject
 
-class HomeViewModel : BaseViewModel() {
+@HiltViewModel
+class HomeViewModel @Inject constructor(
+    private val locationManager: LocationManager,
+    private val workManager: WorkManager,
+    private val notificationManager: NotificationManager,
+    private val eventRepository: EventRepository,
+    private val preferences: Preferences
+) : BaseViewModel() {
 
-    val locationPointFlow get() = application.locationManager.locationPointFlow
+    val locationPositionEnabled get() = preferences.locationPositionEnabled
+
+    val latestLoadEnabled get() = preferences.latestLoadEnabled
+
+    val locationPointFlow get() = locationManager.locationPointFlow
 
     val mapSelectionFlow = MutableSharedFlow<EventEntity?>(1).apply {
         viewModelScope.launch { emit(null) }
@@ -27,55 +47,74 @@ class HomeViewModel : BaseViewModel() {
         viewModelScope.launch { emit(emptyList()) }
     }
 
-    val loadState = MutableSharedFlow<HomeLoadUseCase.State>(1).apply {
-        viewModelScope.launch { emit(HomeLoadUseCase.State.Ready) }
+    val loadState = MutableSharedFlow<HomeLoadViewState>(1).apply {
+        viewModelScope.launch { emit(HomeLoadViewState.Ready) }
     }
 
     fun load(forceReload: Boolean = false) {
-        if (loadState.replayCache.firstOrNull() == HomeLoadUseCase.State.Ready) {
+        if (loadState.replayCache.firstOrNull() == HomeLoadViewState.Ready) {
             viewModelScope.launch(Dispatchers.IO) {
-                loadState.emit(HomeLoadUseCase.State.Loading)
-                loadState.emit(HomeLoadUseCase.execute(forceReload).also {
+                loadState.emit(HomeLoadViewState.Loading)
+                loadState.emit(execute(forceReload).also {
                     when (it) {
-                        is HomeLoadUseCase.State.Result.Success -> dataState.emit(it.data)
+                        is HomeLoadViewState.Result.Success -> dataState.emit(it.data)
                         else -> dataState.emit(mutableListOf())
                     }
                 })
-                loadState.emit(HomeLoadUseCase.State.Ready)
+                loadState.emit(HomeLoadViewState.Ready)
             }
         }
-        if (application.preferences.locationPositionEnabled == true) {
-            application.locationManager.fetch()
+        if (preferences.locationPositionEnabled == true) {
+            locationManager.fetch()
         }
     }
 
     fun toggleLocation() {
-        application.preferences.apply {
+        preferences.apply {
             val newState = !(locationPositionEnabled ?: false)
             locationPositionEnabled = newState
             viewModelScope.launch(Dispatchers.IO) {
-                application.locationManager.locationPointFlow.emit(null)
+                locationManager.locationPointFlow.emit(null)
                 if (newState) {
-                    application.locationManager.fetch()
+                    locationManager.fetch()
                 } else {
-                    application.locationManager.cancel()
+                    locationManager.cancel()
                 }
             }
         }
     }
 
     fun toggleNotifications() {
-        application.preferences.apply {
+        preferences.apply {
             val newState = !(latestLoadEnabled ?: false)
             latestLoadEnabled = newState
             if (newState) {
-                application.workManager.startLatestLoad()
+                workManager.startLatestLoad()
             } else {
-                application.workManager.cancelLatestLoad()
-                application.notificationManager.hideLatest()
+                workManager.cancelLatestLoad()
+                notificationManager.hideLatest()
             }
         }
     }
+
+    suspend fun execute(forceReload: Boolean): HomeLoadViewState.Result = runCatching {
+        val list = eventRepository.selectList()
+        if (list.isEmpty() || forceReload) {
+            val presentDateTime = LocalDateTime.now(ZoneId.of("UTC"))
+            val oneHourBeforeDateTime = presentDateTime.minusDays(1)
+            return run {
+                val newList = eventRepository.fetch(
+                    minTimestamp = oneHourBeforeDateTime,
+                    maxTimestamp = presentDateTime
+                )
+                eventRepository.reload(newList)
+                preferences.lastListLoadTimestamp = LocalDateTime.now()
+                HomeLoadViewState.Result.Success(eventRepository.selectList())
+            }
+        } else {
+            HomeLoadViewState.Result.Success(eventRepository.selectList())
+        }
+    }.getOrElse { it.printStackTrace(); HomeLoadViewState.Result.Failure }
 
 }
 

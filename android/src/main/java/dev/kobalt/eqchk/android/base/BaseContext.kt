@@ -14,13 +14,10 @@ import androidx.annotation.*
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
-import dev.kobalt.eqchk.android.main.MainApplication
 
 interface BaseContext {
 
     fun requestContext(): Context
-
-    val application: MainApplication get() = MainApplication.Native.instance
 
     private fun getDimensionValue(type: Int, value: Float): Float {
         return TypedValue.applyDimension(type, value, requestContext().resources.displayMetrics)

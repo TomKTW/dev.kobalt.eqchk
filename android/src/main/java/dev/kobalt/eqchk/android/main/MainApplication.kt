@@ -1,51 +1,25 @@
 package dev.kobalt.eqchk.android.main
 
-import android.content.Context
+import dagger.hilt.android.HiltAndroidApp
 import dev.kobalt.eqchk.android.base.BaseApplication
-import dev.kobalt.eqchk.android.base.BaseContext
-import dev.kobalt.eqchk.android.component.LocationManager
-import dev.kobalt.eqchk.android.component.NotificationManager
 import dev.kobalt.eqchk.android.component.Preferences
 import dev.kobalt.eqchk.android.component.WorkManager
-import dev.kobalt.eqchk.android.event.EventRepository
 import dev.kobalt.eqchk.android.view.MapView
-import io.ktor.client.*
-import io.ktor.client.engine.android.*
+import javax.inject.Inject
 
-class MainApplication(val native: Native) : BaseContext {
+@HiltAndroidApp
+class MainApplication : BaseApplication() {
 
-    override fun requestContext(): Context = native
+    @Inject
+    lateinit var preferences: Preferences
 
-    class Native : BaseApplication() {
+    @Inject
+    lateinit var workManager: WorkManager
 
-        companion object {
-            lateinit var instance: MainApplication private set
-        }
-
-        override fun onCreate() {
-            super.onCreate()
-            instance = MainApplication(this)
-            MapView.initialize(this)
-        }
-
-    }
-
-    val httpClient = HttpClient(Android) { expectSuccess = false }
-
-    val locationManager = LocationManager(this)
-
-    val preferences = Preferences(this)
-
-    val workManager = WorkManager(this)
-
-    val notificationManager = NotificationManager(this)
-
-    val eventRepository = EventRepository(this)
-
-    init {
+    override fun onCreate() {
+        super.onCreate()
         if (preferences.latestLoadEnabled == true) workManager.startLatestLoad()
+        MapView.initialize(this)
     }
 
 }
-
-

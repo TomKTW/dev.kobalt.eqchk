@@ -1,8 +1,9 @@
 package dev.kobalt.eqchk.android.event
 
+import android.content.Context
 import dev.kobalt.eqchk.android.extension.toJsonElement
 import dev.kobalt.eqchk.android.extension.transaction
-import dev.kobalt.eqchk.android.main.MainApplication
+import io.ktor.client.*
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
 import io.ktor.http.*
@@ -12,11 +13,15 @@ import org.jetbrains.exposed.sql.*
 import java.math.BigDecimal
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
+import javax.inject.Inject
 
-class EventRepository(private val application: MainApplication) {
+class EventRepository @Inject constructor(
+    private val context: Context,
+    private val httpClient: HttpClient
+) {
 
     val database = Database.connect(
-        "jdbc:h2:${application.native.filesDir.canonicalPath}/database",
+        "jdbc:h2:${context.filesDir.canonicalPath}/database",
         "org.h2.Driver"
     ).also {
         it.transaction {
@@ -63,7 +68,7 @@ class EventRepository(private val application: MainApplication) {
     }
 
     suspend fun fetchItem(id: String?): EventEntity? {
-        application.httpClient.get<HttpStatement>(HttpRequestBuilder().apply {
+        httpClient.get<HttpStatement>(HttpRequestBuilder().apply {
             url {
                 protocol = URLProtocol.HTTPS
                 host = "earthquake.usgs.gov"
@@ -100,7 +105,7 @@ class EventRepository(private val application: MainApplication) {
         range: Double? = null,
         limit: Int? = null
     ): List<EventEntity> {
-        application.httpClient.get<HttpStatement>(HttpRequestBuilder().apply {
+        httpClient.get<HttpStatement>(HttpRequestBuilder().apply {
             url {
                 protocol = URLProtocol.HTTPS
                 host = "earthquake.usgs.gov"

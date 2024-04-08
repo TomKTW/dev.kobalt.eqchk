@@ -1,8 +1,11 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("org.jetbrains.kotlin.kapt")
     id("kotlin-parcelize")
     id("androidx.navigation.safeargs.kotlin")
+    id("com.google.dagger.hilt.android")
+    id("com.google.devtools.ksp")
 }
 
 android {
@@ -88,6 +91,14 @@ dependencies {
     implementation("com.google.android.material:material:1.5.0")
     // H2 Database
     implementation("com.h2database:h2:1.4.200")
+    // Hilt Dependency Injection Framework
+    implementation("com.google.dagger:hilt-android:2.51.1")
+    // Hilt Dependency Injection Annotation Processor
+    kapt("com.google.dagger:hilt-android-compiler:2.51.1")
+    // Hilt Dependency Injection Worker Support
+    implementation("androidx.hilt:hilt-work:1.2.0")
+    // Hilt Dependency Injection AndroidX Annotation Processor
+    kapt("androidx.hilt:hilt-compiler:1.2.0")
     // KotlinX Coroutines Core
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0")
     // KotlinX Coroutines Android
@@ -110,4 +121,8 @@ dependencies {
     androidTestImplementation("androidx.test.ext:junit:1.1.3")
     // AndroidX Espresso Core
     androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
+}
+
+kapt {
+    correctErrorTypes = true
 }

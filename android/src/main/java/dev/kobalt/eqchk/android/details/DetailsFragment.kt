@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import dagger.hilt.android.AndroidEntryPoint
 import dev.kobalt.eqchk.android.R
 import dev.kobalt.eqchk.android.base.BaseFragment
 import dev.kobalt.eqchk.android.component.LocationConverter
@@ -19,6 +20,7 @@ import dev.kobalt.eqchk.android.extension.toSpannedHtml
 import kotlinx.coroutines.launch
 import java.math.RoundingMode
 
+@AndroidEntryPoint
 class DetailsFragment : BaseFragment<DetailsBinding>() {
 
     val args: DetailsFragmentArgs by navArgs()
@@ -45,7 +47,7 @@ class DetailsFragment : BaseFragment<DetailsBinding>() {
                     item?.let { mapMap.updateItem(it) }
                     detailsEventCard.apply(
                         item,
-                        application.locationManager.locationPointFlow.replayCache.firstOrNull()
+                        viewModel.locationPointFlow.replayCache.firstOrNull()
                     )
                     detailsCoordinatesLabel.text =
                         ifLet(item?.latitude, item?.longitude) { latitude, longitude ->
