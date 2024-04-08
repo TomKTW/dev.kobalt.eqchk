@@ -4,14 +4,13 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointBackward
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.slider.RangeSlider
-import com.zhuinden.simplestackextensions.fragmentsktx.backstack
 import dev.kobalt.eqchk.android.base.BaseFragment
 import dev.kobalt.eqchk.android.databinding.SearchBinding
-import dev.kobalt.eqchk.android.details.DetailsKey
 import dev.kobalt.eqchk.android.extension.toString
 import java.time.Instant
 import java.time.LocalDateTime
@@ -70,7 +69,7 @@ class SearchFragment : BaseFragment<SearchBinding>() {
         }
         viewBinding?.apply {
             listRecycler.onItemSelect = {
-                backstack.goTo(DetailsKey(it.id!!))
+                navigateToDetails(it.id!!)
             }
             magnitudeInput.addOnChangeListener(rangeListener)
             magnitudeInput.valueFrom = 1f
@@ -155,6 +154,10 @@ class SearchFragment : BaseFragment<SearchBinding>() {
             communityIntensityInput.removeOnChangeListener(rangeListener)
             depthInput.removeOnChangeListener(rangeListener)
         }
+    }
+
+    private fun navigateToDetails(id: String) {
+        findNavController().navigate(SearchFragmentDirections.actionSearchToDetails(id))
     }
 
 }

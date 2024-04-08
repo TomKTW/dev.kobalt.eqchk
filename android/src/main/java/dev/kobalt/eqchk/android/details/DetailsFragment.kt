@@ -7,7 +7,8 @@ import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.viewModelScope
-import com.zhuinden.simplestackextensions.fragmentsktx.backstack
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import dev.kobalt.eqchk.android.R
 import dev.kobalt.eqchk.android.base.BaseFragment
 import dev.kobalt.eqchk.android.component.LocationConverter
@@ -20,15 +21,12 @@ import java.math.RoundingMode
 
 class DetailsFragment : BaseFragment<DetailsBinding>() {
 
+    val args: DetailsFragmentArgs by navArgs()
     val viewModel: DetailsViewModel by viewModels()
-
-    companion object {
-        val uidKey = "uid"
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel.load(requireArguments().getString(uidKey)!!)
+        viewModel.load(args.uid)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -72,7 +70,7 @@ class DetailsFragment : BaseFragment<DetailsBinding>() {
             }
         }
         viewBinding?.apply {
-            headerBackButton.setOnClickListener { backstack.goBack() }
+            headerBackButton.setOnClickListener { navigateBack() }
             headerDetailsButton.setOnClickListener {
                 viewModel.dataState.replayCache.firstOrNull()?.detailsUrl?.let {
                     val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(it))
@@ -86,6 +84,10 @@ class DetailsFragment : BaseFragment<DetailsBinding>() {
                 viewModel.viewModelScope.launch { viewModel.pageState.emit(Page.Map) }
             }
         }
+    }
+
+    private fun navigateBack() {
+        findNavController().popBackStack()
     }
 
     enum class Page {

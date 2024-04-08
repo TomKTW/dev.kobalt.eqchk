@@ -2,6 +2,7 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("kotlin-parcelize")
+    id("androidx.navigation.safeargs.kotlin")
 }
 
 android {
@@ -65,6 +66,10 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.4.1")
     // AndroidX Lifecycle ViewModel Kotlin Extensions
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1")
+    // AndroidX Navigation Fragment Stack
+    implementation("androidx.navigation:navigation-fragment-ktx:2.7.7")
+    // AndroidX Navigation UI Stack
+    implementation("androidx.navigation:navigation-ui-ktx:2.7.7")
     // AndroidX Preferences Kotlin Extensions
     implementation("androidx.preference:preference-ktx:1.2.0")
     // AndroidX Swipe Refresh Layout
@@ -97,10 +102,6 @@ dependencies {
     implementation("org.osmdroid:osmdroid-android:6.1.11")
     // OpenStreetMaps Extras
     implementation("com.github.MKergall:osmbonuspack:6.8.0")
-    // Simple Stack Navigation
-    implementation("com.github.Zhuinden:simple-stack:2.6.2")
-    // Simple Stack Extensions
-    implementation("com.github.Zhuinden:simple-stack-extensions:2.2.2")
     // Simple Logging Facade
     implementation("org.slf4j:slf4j-android:1.7.32")
     // JUnit

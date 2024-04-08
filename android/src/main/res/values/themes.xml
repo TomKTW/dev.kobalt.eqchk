@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.EarthquakeCheck" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Theme.Eqchk" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/brown_light</item>
         <item name="colorPrimaryVariant">@color/brown_dark</item>

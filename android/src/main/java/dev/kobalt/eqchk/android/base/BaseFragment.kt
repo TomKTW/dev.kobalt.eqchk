@@ -5,12 +5,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.viewbinding.ViewBinding
-import com.zhuinden.simplestackextensions.fragments.KeyedFragment
 import java.lang.reflect.ParameterizedType
 
-abstract class BaseFragment<V : ViewBinding> : KeyedFragment(), BaseContext {
+abstract class BaseFragment<V : ViewBinding> : Fragment(), BaseContext {
 
     override fun requestContext(): Context = requireContext().applicationContext
 

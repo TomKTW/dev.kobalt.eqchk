@@ -10,13 +10,11 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.viewModelScope
-import com.zhuinden.simplestackextensions.fragmentsktx.backstack
+import androidx.navigation.fragment.findNavController
 import dev.kobalt.eqchk.android.R
 import dev.kobalt.eqchk.android.animation.SlideAnimation
 import dev.kobalt.eqchk.android.base.BaseFragment
 import dev.kobalt.eqchk.android.databinding.HomeBinding
-import dev.kobalt.eqchk.android.details.DetailsKey
-import dev.kobalt.eqchk.android.search.SearchKey
 import kotlinx.coroutines.launch
 import org.osmdroid.util.GeoPoint
 
@@ -111,7 +109,7 @@ class HomeFragment : BaseFragment<HomeBinding>() {
         }
         viewBinding?.apply {
             headerSearchButton.setOnClickListener {
-                backstack.goTo(SearchKey())
+                navigateToSearch()
             }
             mapContainer.apply {
                 mapMap.apply {
@@ -127,7 +125,7 @@ class HomeFragment : BaseFragment<HomeBinding>() {
                     translationY = dp(128).toFloat()
                     setOnClickListener {
                         viewModel.mapSelectionFlow.replayCache.firstOrNull()?.id?.let {
-                            backstack.goTo(DetailsKey(it))
+                            findNavController().navigate(HomeFragmentDirections.actionHomeToDetails(it))
                         }
                     }
                 }
@@ -137,7 +135,7 @@ class HomeFragment : BaseFragment<HomeBinding>() {
                     viewModel.load(forceReload = true)
                 }
                 listRecycler.onItemSelect =
-                    { item -> item.id?.let { backstack.goTo(DetailsKey(it)) } }
+                    { item -> item.id?.let { navigateToDetails(it) } }
             }
             settingsContainer.apply {
                 requestPermissionsButton.apply {
@@ -223,6 +221,14 @@ class HomeFragment : BaseFragment<HomeBinding>() {
     override fun onPause() {
         super.onPause()
         viewBinding?.mapContainer?.mapMap?.onPause()
+    }
+
+    private fun navigateToSearch() {
+        findNavController().navigate(HomeFragmentDirections.actionHomeToSearch())
+    }
+
+    private fun navigateToDetails(id: String) {
+        findNavController().navigate(HomeFragmentDirections.actionHomeToDetails(id))
     }
 
     enum class Page {
