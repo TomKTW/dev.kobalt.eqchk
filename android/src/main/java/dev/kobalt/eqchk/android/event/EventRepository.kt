@@ -1,92 +1,32 @@
 package dev.kobalt.eqchk.android.event
 
-import android.content.Context
-import dev.kobalt.eqchk.android.extension.toJsonElement
-import dev.kobalt.eqchk.android.extension.transaction
-import io.ktor.client.*
-import io.ktor.client.request.*
-import io.ktor.client.statement.*
-import io.ktor.http.*
-import kotlinx.serialization.json.jsonArray
-import kotlinx.serialization.json.jsonObject
-import org.jetbrains.exposed.sql.*
-import java.math.BigDecimal
 import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
 import javax.inject.Inject
 
 class EventRepository @Inject constructor(
-    private val context: Context,
-    private val httpClient: HttpClient
+    private val apiService: EventApiService,
+    private val localCache: EventLocalCache
 ) {
 
-    val database = Database.connect(
-        "jdbc:h2:${context.filesDir.canonicalPath}/database",
-        "org.h2.Driver"
-    ).also {
-        it.transaction {
-            SchemaUtils.createMissingTablesAndColumns(EventTable)
-        }
+    fun selectList(): List<EventEntity> {
+        return localCache.getList().sortedBy { it.timestamp }
     }
 
-    fun selectList(): List<EventEntity> = database.transaction {
-        EventTable.selectAll()
-            .orderBy(EventTable.timestamp, SortOrder.DESC)
-            .map { it.toEventEntity() }
-    }
-
-    fun selectItem(uid: String): EventEntity? = database.transaction {
-        EventTable.select { (EventTable.uid eq uid) }.singleOrNull()
-            ?.toEventEntity()
+    fun selectItem(id: Int): EventEntity? {
+        return localCache.getItem(id)
     }
 
     fun getLatestItem(): EventEntity? {
-        return EventTable.selectAll()
-            .orderBy(EventTable.timestamp, SortOrder.DESC)
-            .singleOrNull()?.toEventEntity()
+        return localCache.getItemWithLatestTimestamp()
     }
 
-    fun reload(list: List<EventEntity>) = database.transaction {
-        EventTable.deleteAll()
-        list.forEach { entity ->
-            EventTable.insert {
-                it[EventTable.uid] = entity.id.orEmpty()
-                it[EventTable.location] = entity.location.orEmpty()
-                it[EventTable.timestamp] = entity.timestamp ?: LocalDateTime.MIN
-                it[EventTable.estimatedIntensity] = entity.estimatedIntensity ?: BigDecimal.ZERO
-                it[EventTable.communityIntensity] = entity.communityIntensity ?: BigDecimal.ZERO
-                it[EventTable.communityResponseCount] = entity.communityResponseCount ?: 0
-                it[EventTable.magnitude] = entity.magnitude ?: BigDecimal.ZERO
-                it[EventTable.latitude] = entity.latitude ?: 0.0
-                it[EventTable.longitude] = entity.longitude ?: 0.0
-                it[EventTable.depth] = entity.depth ?: 0.0
-                it[EventTable.detailsUrl] = entity.detailsUrl.orEmpty()
-                it[EventTable.tectonicSummary] = entity.tectonicSummary.orEmpty()
-                it[EventTable.impactSummary] = entity.impactSummary.orEmpty()
-            }
-        }
+    fun reload(list: List<EventEntity>) {
+        localCache.clear()
+        localCache.add(list)
     }
 
     suspend fun fetchItem(id: String?): EventEntity? {
-        httpClient.get<HttpStatement>(HttpRequestBuilder().apply {
-            url {
-                protocol = URLProtocol.HTTPS
-                host = "earthquake.usgs.gov"
-                encodedPath = "/fdsnws/event/1/query"
-                parameters.apply {
-                    this["format"] = "geojson"
-                    id?.let { this["eventid"] = it }
-                }
-            }
-        }).execute().let { response ->
-            return when {
-                response.status.isSuccess() -> {
-                    response.readText().toJsonElement().jsonObject.toEventEntity()
-                }
-                response.status.value == 404 -> null
-                else -> throw Exception()
-            }
-        }
+        return apiService.fetchItem(id)
     }
 
     suspend fun fetch(
@@ -105,44 +45,22 @@ class EventRepository @Inject constructor(
         range: Double? = null,
         limit: Int? = null
     ): List<EventEntity> {
-        httpClient.get<HttpStatement>(HttpRequestBuilder().apply {
-            url {
-                protocol = URLProtocol.HTTPS
-                host = "earthquake.usgs.gov"
-                encodedPath = "/fdsnws/event/1/query"
-                parameters.apply {
-                    this["format"] = "geojson"
-                    minMagnitude?.let { this["minmagnitude"] = it.toString() }
-                    maxMagnitude?.let { this["maxmagnitude"] = it.toString() }
-                    minEstimatedIntensity?.let { this["minmmi"] = it.toString() }
-                    maxEstimatedIntensity?.let { this["maxmmi"] = it.toString() }
-                    minCommunityIntensity?.let { this["mincdi"] = it.toString() }
-                    maxCommunityIntensity?.let { this["maxcdi"] = it.toString() }
-                    minDepth?.let { this["mindepth"] = it.toString() }
-                    maxDepth?.let { this["maxdepth"] = it.toString() }
-                    minTimestamp?.let {
-                        this["starttime"] = it.format(DateTimeFormatter.ISO_DATE_TIME)
-                    }
-                    maxTimestamp?.let {
-                        this["endtime"] = it.format(DateTimeFormatter.ISO_DATE_TIME)
-                    }
-                    latitude?.let { this["latitude"] = it.toString() }
-                    longitude?.let { this["longitude"] = it.toString() }
-                    range?.let { this["maxradiuskm"] = it.toString() }
-                    this["limit"] = limit?.toString() ?: "100"
-                }
-            }
-        }).execute().let { response ->
-            when {
-                response.status.isSuccess() -> {
-                    return response.readText().toJsonElement()
-                        .jsonObject["features"]?.jsonArray?.map {
-                        it.jsonObject.toEventEntity()
-                    }.orEmpty()
-                }
-                else -> throw Exception()
-            }
-        }
+        return apiService.fetch(
+            minMagnitude,
+            maxMagnitude,
+            minEstimatedIntensity,
+            maxEstimatedIntensity,
+            minCommunityIntensity,
+            maxCommunityIntensity,
+            minDepth,
+            maxDepth,
+            minTimestamp,
+            maxTimestamp,
+            latitude,
+            longitude,
+            range,
+            limit
+        )
     }
 
 }

@@ -11,7 +11,7 @@ fun JsonObject.toEventEntity(): EventEntity {
     val coordinates = geometry?.get("coordinates")?.jsonArray
     val products = properties?.get("products")?.jsonObject
     return EventEntity(
-        id = this["id"]?.jsonPrimitive?.contentOrNull,
+        id = this["id"]?.jsonPrimitive?.contentOrNull!!,
         location = properties?.get("place")?.jsonPrimitive?.contentOrNull,
         timestamp = properties?.get("time")?.jsonPrimitive?.longOrNull?.let {
             LocalDateTime.ofInstant(Instant.ofEpochMilli(it), ZoneId.of("UTC"))

@@ -1,13 +1,13 @@
 package dev.kobalt.eqchk.android.event
 
-import android.os.Parcelable
-import kotlinx.parcelize.Parcelize
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import java.math.BigDecimal
 import java.time.LocalDateTime
 
-@Parcelize
+@Entity(tableName = "events")
 data class EventEntity(
-    val id: String?,
+    @PrimaryKey val id: String,
     val location: String?,
     val timestamp: LocalDateTime?,
     val estimatedIntensity: BigDecimal?,
@@ -20,5 +20,5 @@ data class EventEntity(
     val detailsUrl: String?,
     val tectonicSummary: String?,
     val impactSummary: String?
-) : Parcelable
+)
 

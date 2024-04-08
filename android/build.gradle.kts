@@ -75,22 +75,16 @@ dependencies {
     implementation("androidx.navigation:navigation-ui-ktx:2.7.7")
     // AndroidX Preferences Kotlin Extensions
     implementation("androidx.preference:preference-ktx:1.2.0")
+    // AndroidX Room Database Framework
+    implementation("androidx.room:room-runtime:2.6.1")
+    // AndroidX Room Database Annotation Processor
+    ksp("androidx.room:room-compiler:2.6.1")
     // AndroidX Swipe Refresh Layout
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
     // AndroidX WorkManager Kotlin Extensions
     implementation("androidx.work:work-runtime-ktx:2.7.1")
-    // Exposed Core
-    implementation("org.jetbrains.exposed:exposed-core:0.37.3")
-    // Exposed DAO
-    implementation("org.jetbrains.exposed:exposed-dao:0.37.3")
-    // Exposed JDBC
-    implementation("org.jetbrains.exposed:exposed-jdbc:0.37.3")
-    // Exposed Java Time Extension
-    implementation("org.jetbrains.exposed:exposed-java-time:0.37.3")
     // Google Material Design
     implementation("com.google.android.material:material:1.5.0")
-    // H2 Database
-    implementation("com.h2database:h2:1.4.200")
     // Hilt Dependency Injection Framework
     implementation("com.google.dagger:hilt-android:2.51.1")
     // Hilt Dependency Injection Annotation Processor
