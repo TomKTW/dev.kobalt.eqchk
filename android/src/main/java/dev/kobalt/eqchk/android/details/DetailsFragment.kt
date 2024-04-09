@@ -13,10 +13,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import dagger.hilt.android.AndroidEntryPoint
 import dev.kobalt.eqchk.android.base.BaseFragment
-import dev.kobalt.eqchk.android.databinding.DetailsBinding
 
 @AndroidEntryPoint
-class DetailsFragment : BaseFragment<DetailsBinding>() {
+class DetailsFragment : BaseFragment() {
 
     private val args: DetailsFragmentArgs by navArgs()
     private val viewModel: DetailsViewModel by viewModels()
@@ -28,7 +27,7 @@ class DetailsFragment : BaseFragment<DetailsBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewBinding?.composeContainer?.setContent {
+        composeView?.setContent {
             MaterialTheme {
                 val event: DetailsViewState? by viewModel.viewState.collectAsState(null)
                 Surface {

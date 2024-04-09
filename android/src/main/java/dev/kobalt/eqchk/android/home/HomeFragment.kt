@@ -1,26 +1,20 @@
 package dev.kobalt.eqchk.android.home
 
-import android.Manifest
-import android.graphics.drawable.RippleDrawable
-import android.graphics.drawable.ShapeDrawable
-import android.graphics.drawable.shapes.RectShape
 import android.os.Bundle
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.view.isVisible
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Surface
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import dev.kobalt.eqchk.android.R
-import dev.kobalt.eqchk.android.animation.SlideAnimation
 import dev.kobalt.eqchk.android.base.BaseFragment
-import dev.kobalt.eqchk.android.databinding.HomeBinding
-import kotlinx.coroutines.launch
-import org.osmdroid.util.GeoPoint
 
 @AndroidEntryPoint
-class HomeFragment : BaseFragment<HomeBinding>() {
+class HomeFragment : BaseFragment() {
 
     private val viewModel: HomeViewModel by viewModels()
 
@@ -40,6 +34,24 @@ class HomeFragment : BaseFragment<HomeBinding>() {
         viewModel.load()
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        composeView?.setContent {
+            MaterialTheme {
+                val viewState: HomeViewState? by viewModel.viewState.collectAsState(null)
+                Surface {
+                    HomeScreen(
+                        viewState,
+                        onClick = {
+                            navigateToDetails(it.id)
+                        }
+                    )
+                }
+            }
+        }
+    }
+
+    /*
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewLifecycleScope.launchWhenCreated {
@@ -223,7 +235,7 @@ class HomeFragment : BaseFragment<HomeBinding>() {
     override fun onPause() {
         super.onPause()
         viewBinding?.mapContainer?.mapMap?.onPause()
-    }
+    }*/
 
     private fun navigateToSearch() {
         findNavController().navigate(HomeFragmentDirections.actionHomeToSearch())

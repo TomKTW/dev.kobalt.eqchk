@@ -11,6 +11,7 @@ import dev.kobalt.eqchk.android.event.EventEntity
 import dev.kobalt.eqchk.android.event.EventRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 import java.time.LocalDateTime
 import java.time.ZoneId
@@ -49,6 +50,10 @@ class HomeViewModel @Inject constructor(
 
     val loadState = MutableSharedFlow<HomeLoadViewState>(1).apply {
         viewModelScope.launch { emit(HomeLoadViewState.Ready) }
+    }
+
+    val viewState = dataState.combine(locationPointFlow) { event, location ->
+        HomeViewState(event)
     }
 
     fun load(forceReload: Boolean = false) {
@@ -118,4 +123,6 @@ class HomeViewModel @Inject constructor(
 
 }
 
-
+data class HomeViewState(
+    val list: List<EventEntity>
+)

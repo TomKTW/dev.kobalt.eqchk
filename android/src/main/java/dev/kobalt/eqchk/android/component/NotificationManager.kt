@@ -51,7 +51,7 @@ class NotificationManager(
     @SuppressLint("NotificationPermission")
     fun showLatest(event: EventEntity) {
         val resultIntent = Intent(context, MainActivity::class.java).apply {
-            putExtra(MainActivity.lastIdKey, event.id)
+            putExtra("lastId", event.id)
             flags = (Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
             action = Intent.ACTION_MAIN
             addCategory(Intent.CATEGORY_LAUNCHER)

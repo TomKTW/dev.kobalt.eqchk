@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/main"
             app:startDestination="@id/home">
 
     <fragment
         android:id="@+id/home"
-        android:name="dev.kobalt.eqchk.android.home.HomeFragment"
-        tools:layout="@layout/home">
+        android:name="dev.kobalt.eqchk.android.home.HomeFragment">
 
         <action
             android:id="@+id/actionHomeToSearch"
@@ -20,8 +19,7 @@
 
     <fragment
         android:id="@+id/details"
-        android:name="dev.kobalt.eqchk.android.details.DetailsFragment"
-        tools:layout="@layout/details">
+        android:name="dev.kobalt.eqchk.android.details.DetailsFragment">
 
         <argument
             android:name="uid"
@@ -31,8 +29,7 @@
 
     <fragment
         android:id="@+id/search"
-        android:name="dev.kobalt.eqchk.android.search.SearchFragment"
-        tools:layout="@layout/search">
+        android:name="dev.kobalt.eqchk.android.search.SearchFragment">
 
         <action
             android:id="@+id/actionSearchToDetails"
