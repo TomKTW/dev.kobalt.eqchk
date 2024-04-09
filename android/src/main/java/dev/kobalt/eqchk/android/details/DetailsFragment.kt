@@ -4,27 +4,22 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
-import androidx.core.view.isVisible
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Surface
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import dagger.hilt.android.AndroidEntryPoint
-import dev.kobalt.eqchk.android.R
 import dev.kobalt.eqchk.android.base.BaseFragment
-import dev.kobalt.eqchk.android.component.LocationConverter
 import dev.kobalt.eqchk.android.databinding.DetailsBinding
-import dev.kobalt.eqchk.android.extension.ifLet
-import dev.kobalt.eqchk.android.extension.toEventIntensity
-import dev.kobalt.eqchk.android.extension.toSpannedHtml
-import kotlinx.coroutines.launch
-import java.math.RoundingMode
 
 @AndroidEntryPoint
 class DetailsFragment : BaseFragment<DetailsBinding>() {
 
-    val args: DetailsFragmentArgs by navArgs()
-    val viewModel: DetailsViewModel by viewModels()
+    private val args: DetailsFragmentArgs by navArgs()
+    private val viewModel: DetailsViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,67 +28,30 @@ class DetailsFragment : BaseFragment<DetailsBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewLifecycleScope.launchWhenCreated {
-            viewModel.pageState.collect {
-                viewBinding?.apply {
-                    detailsContainer.isVisible = it == Page.Info
-                    mapContainer.isVisible = it == Page.Map
-                }
-            }
-        }
-        viewLifecycleScope.launchWhenCreated {
-            viewModel.dataState.collect { item ->
-                viewBinding?.apply {
-                    item?.let { mapMap.updateItem(it) }
-                    detailsEventCard.apply(
-                        item,
-                        viewModel.locationPointFlow.replayCache.firstOrNull()
+        viewBinding?.composeContainer?.setContent {
+            MaterialTheme {
+                val event: DetailsViewState? by viewModel.viewState.collectAsState(null)
+                Surface {
+                    DetailsScreen(
+                        onBackButtonClick = {
+                            navigateBack()
+                        },
+                        onOpenButtonClick = {
+                            event?.detailsUri?.let { openInBrowser(it) }
+                        },
+                        event
                     )
-                    detailsCoordinatesLabel.text =
-                        ifLet(item?.latitude, item?.longitude) { latitude, longitude ->
-                            LocationConverter.locationToStringDMS(latitude, longitude, 1)
-                        }
-                    depthLabel.text =
-                        item?.depth?.toBigDecimal()?.setScale(0, RoundingMode.HALF_EVEN)
-                            ?.let { "$it ${getResourceString(R.string.kilometers)}" } ?: "-"
-                    tectonicSummaryLabel.text = item?.tectonicSummary?.toSpannedHtml()
-                    impactSummaryLabel.text = item?.impactSummary?.toSpannedHtml()
-                    estimatedIntensityScale.value =
-                        item?.estimatedIntensity?.toEventIntensity()
-                    estimatedIntensityValueLabel.text =
-                        item?.estimatedIntensity?.toEventIntensity()?.label
-                            ?: getResourceString(R.string.not_available)
-                    communityIntensityScale.value =
-                        item?.communityIntensity?.toEventIntensity()
-                    communityIntensityValueLabel.text =
-                        item?.communityIntensity?.toEventIntensity()?.label
-                            ?: getResourceString(R.string.not_available)
                 }
             }
         }
-        viewBinding?.apply {
-            headerBackButton.setOnClickListener { navigateBack() }
-            headerDetailsButton.setOnClickListener {
-                viewModel.dataState.replayCache.firstOrNull()?.detailsUrl?.let {
-                    val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(it))
-                    startActivity(browserIntent)
-                }
-            }
-            footerDetailsButton.setOnClickListener {
-                viewModel.viewModelScope.launch { viewModel.pageState.emit(Page.Info) }
-            }
-            footerMapButton.setOnClickListener {
-                viewModel.viewModelScope.launch { viewModel.pageState.emit(Page.Map) }
-            }
-        }
+    }
+
+    private fun openInBrowser(uri: Uri) {
+        startActivity(Intent(Intent.ACTION_VIEW, uri))
     }
 
     private fun navigateBack() {
         findNavController().popBackStack()
-    }
-
-    enum class Page {
-        Info, Map
     }
 
 }

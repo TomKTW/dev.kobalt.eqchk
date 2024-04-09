@@ -24,6 +24,12 @@ object MainModule {
 
     @Provides
     @Singleton
+    fun provideMainApplication(@ApplicationContext context: Context): MainApplication {
+        return context as MainApplication
+    }
+
+    @Provides
+    @Singleton
     fun provideLocationManager(@ApplicationContext context: Context): LocationManager {
         return LocationManager(context)
     }

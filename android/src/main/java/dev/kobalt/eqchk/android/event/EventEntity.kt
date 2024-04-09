@@ -21,4 +21,3 @@ data class EventEntity(
     val tectonicSummary: String?,
     val impactSummary: String?
 )
-

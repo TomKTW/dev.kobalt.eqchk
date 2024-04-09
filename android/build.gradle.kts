@@ -44,7 +44,11 @@ android {
         jvmTarget = "1.8"
     }
     buildFeatures {
+        compose = true
         viewBinding = true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.5.11"
     }
 }
 
@@ -55,6 +59,18 @@ dependencies {
     implementation("androidx.core:core-ktx:1.7.0")
     // AndroidX AppCompat
     implementation("androidx.appcompat:appcompat:1.4.1")
+    // AndroidX Compose Foundation Components
+    implementation("androidx.compose.foundation:foundation:1.6.5")
+    // AndroidX Compose Foundation Layout Components
+    implementation("androidx.compose.foundation:foundation-layout:1.6.5")
+    // AndroidX Compose Material Design Components
+    implementation("androidx.compose.material:material:1.6.5")
+    // AndroidX Compose Runtime
+    implementation("androidx.compose.runtime:runtime:1.6.5")
+    // AndroidX Compose UI
+    implementation("androidx.compose.ui:ui:1.6.5")
+    // AndroidX Compose UI Tools
+    implementation("androidx.compose.ui:ui-tooling:1.6.5")
     // AndroidX Core Kotlin Extensions
     implementation("androidx.core:core-ktx:1.7.0")
     // AndroidX Fragment Kotlin Extensions

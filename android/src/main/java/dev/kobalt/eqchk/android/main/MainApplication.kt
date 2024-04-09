@@ -2,13 +2,14 @@ package dev.kobalt.eqchk.android.main
 
 import dagger.hilt.android.HiltAndroidApp
 import dev.kobalt.eqchk.android.base.BaseApplication
+import dev.kobalt.eqchk.android.base.BaseContext
 import dev.kobalt.eqchk.android.component.Preferences
 import dev.kobalt.eqchk.android.component.WorkManager
 import dev.kobalt.eqchk.android.view.MapView
 import javax.inject.Inject
 
 @HiltAndroidApp
-class MainApplication : BaseApplication() {
+class MainApplication : BaseApplication(), BaseContext {
 
     @Inject
     lateinit var preferences: Preferences
@@ -21,5 +22,7 @@ class MainApplication : BaseApplication() {
         if (preferences.latestLoadEnabled == true) workManager.startLatestLoad()
         MapView.initialize(this)
     }
+
+    override fun requestContext() = this
 
 }
