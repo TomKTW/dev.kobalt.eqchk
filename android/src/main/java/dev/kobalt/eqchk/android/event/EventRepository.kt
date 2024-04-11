@@ -1,13 +1,27 @@
 package dev.kobalt.eqchk.android.event
 
-import java.time.LocalDateTime
 import javax.inject.Inject
 
 class EventRepository @Inject constructor(
-    private val apiService: EventApiService,
-    private val localCache: EventLocalCache
+    private val api: EventApi,
+    private val dao: EventDao,
 ) {
 
+    val items get() = dao.selectAll()
+
+    suspend fun fetch(): List<EventEntity> {
+        return api.fetch()
+    }
+
+    suspend fun deleteAll() {
+        dao.deleteAll()
+    }
+
+    suspend fun insertAll(list: List<EventEntity>) {
+        dao.insertAll(list)
+    }
+
+    /*
     fun selectList(): List<EventEntity> {
         return localCache.getList().sortedBy { it.timestamp }
     }
@@ -26,7 +40,7 @@ class EventRepository @Inject constructor(
     }
 
     suspend fun fetchItem(id: String?): EventEntity? {
-        return apiService.fetchItem(id)
+        return api.fetchItem(id)
     }
 
     suspend fun fetch(
@@ -45,7 +59,7 @@ class EventRepository @Inject constructor(
         range: Double? = null,
         limit: Int? = null
     ): List<EventEntity> {
-        return apiService.fetch(
+        return api.fetch(
             minMagnitude,
             maxMagnitude,
             minEstimatedIntensity,
@@ -61,7 +75,7 @@ class EventRepository @Inject constructor(
             range,
             limit
         )
-    }
+    }*/
 
 }
 

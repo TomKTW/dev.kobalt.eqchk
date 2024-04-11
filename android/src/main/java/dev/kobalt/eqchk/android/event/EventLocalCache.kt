@@ -6,6 +6,7 @@ class EventLocalCache @Inject constructor(
     private val dao: EventDao
 ) {
 
+
     fun getList(): List<EventEntity> {
         return dao.selectList()
     }

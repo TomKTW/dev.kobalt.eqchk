@@ -11,7 +11,7 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import javax.inject.Inject
 
-class EventApiService @Inject constructor(
+class EventApi @Inject constructor(
     private val httpClient: HttpClient
 ) {
 

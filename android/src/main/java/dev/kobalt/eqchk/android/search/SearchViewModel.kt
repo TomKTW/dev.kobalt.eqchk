@@ -1,14 +1,8 @@
 package dev.kobalt.eqchk.android.search
 
-import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dev.kobalt.eqchk.android.base.BaseViewModel
-import dev.kobalt.eqchk.android.event.EventEntity
 import dev.kobalt.eqchk.android.event.EventRepository
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.launch
-import java.time.LocalDateTime
 import javax.inject.Inject
 
 @HiltViewModel
@@ -16,6 +10,7 @@ class SearchViewModel @Inject constructor(
     private val eventRepository: EventRepository,
 ) : BaseViewModel() {
 
+    /*
     var formMinMagnitude: Double? = null
     var formMaxMagnitude: Double? = null
     var formMinEstimatedIntensity: Double? = null
@@ -33,6 +28,10 @@ class SearchViewModel @Inject constructor(
 
     val loadState = MutableSharedFlow<SearchSubmitViewState>(1).apply {
         viewModelScope.launch { emit(SearchSubmitViewState.Ready) }
+    }
+
+    val viewState = MutableSharedFlow<Any>(1).apply {
+
     }
 
     fun load() {
@@ -101,6 +100,8 @@ class SearchViewModel @Inject constructor(
         )
     }.getOrElse { it.printStackTrace(); SearchSubmitViewState.Result.Failure }
 
+
+     */
 }
 
 

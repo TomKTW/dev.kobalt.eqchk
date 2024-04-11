@@ -57,6 +57,8 @@ dependencies {
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:1.1.5")
     // AndroidX Core Kotlin Extensions
     implementation("androidx.core:core-ktx:1.7.0")
+    // AndroidX Activity Compose Support
+    implementation("androidx.activity:activity-compose:1.6.5")
     // AndroidX AppCompat
     implementation("androidx.appcompat:appcompat:1.4.1")
     // AndroidX Compose Foundation Components
@@ -77,6 +79,8 @@ dependencies {
     implementation("androidx.fragment:fragment-ktx:1.4.1")
     // AndroidX Lifecycle Extensions
     implementation("androidx.lifecycle:lifecycle-extensions:2.2.0")
+    // AndroidX Lifecycle Extensions
+    implementation("androidx.lifecycle:lifecycle-runtime-compose:2.7.0")
     // AndroidX Lifecycle Java 8 Common
     implementation("androidx.lifecycle:lifecycle-common-java8:2.4.1")
     // AndroidX Lifecycle Runtime Kotlin Extensions
@@ -85,6 +89,8 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.4.1")
     // AndroidX Lifecycle ViewModel Kotlin Extensions
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1")
+    // AndroidX Navigation Compose Support
+    implementation("androidx.navigation:navigation-compose:2.7.7")
     // AndroidX Navigation Fragment Stack
     implementation("androidx.navigation:navigation-fragment-ktx:2.7.7")
     // AndroidX Navigation UI Stack
@@ -93,6 +99,8 @@ dependencies {
     implementation("androidx.preference:preference-ktx:1.2.0")
     // AndroidX Room Database Framework
     implementation("androidx.room:room-runtime:2.6.1")
+    // AndroidX Room Database Kotlin Extensions
+    implementation("androidx.room:room-ktx:2.6.1")
     // AndroidX Room Database Annotation Processor
     ksp("androidx.room:room-compiler:2.6.1")
     // AndroidX Swipe Refresh Layout
@@ -105,6 +113,8 @@ dependencies {
     implementation("com.google.dagger:hilt-android:2.51.1")
     // Hilt Dependency Injection Annotation Processor
     kapt("com.google.dagger:hilt-android-compiler:2.51.1")
+    // Hilt Dependency Injection Compose Navigation Support
+    implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
     // Hilt Dependency Injection Worker Support
     implementation("androidx.hilt:hilt-work:1.2.0")
     // Hilt Dependency Injection AndroidX Annotation Processor

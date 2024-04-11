@@ -19,8 +19,8 @@ fun LocalDateTime.toRelativeTimeString(to: LocalDateTime): String {
     // tempDateTime = tempDateTime.plusMinutes(minutes)
     // val seconds = tempDateTime.until(to, ChronoUnit.SECONDS)
     return when {
-        days > 0 -> this.toString(DateTimeFormatter.ISO_DATE)
-        hours > 0 -> "$hours h"
+        days > 0 -> "$days d $hours h"
+        hours > 0 -> "$hours h $minutes min"
         minutes > 0 -> "$minutes min"
         else -> "<1 min"
     }

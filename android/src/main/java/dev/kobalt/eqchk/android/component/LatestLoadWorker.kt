@@ -7,8 +7,6 @@ import androidx.work.WorkerParameters
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 import dev.kobalt.eqchk.android.event.EventRepository
-import java.time.LocalDateTime
-import java.time.ZoneId
 
 @HiltWorker
 class LatestLoadWorker @AssistedInject constructor(
@@ -25,25 +23,26 @@ class LatestLoadWorker @AssistedInject constructor(
     }
 
     override suspend fun doWork(): Result {
-        return try {
-            val presentDateTime = LocalDateTime.now(ZoneId.of("UTC"))
-            val oneHourBeforeDateTime = presentDateTime.minusDays(1)
-            val newList = eventRepository.fetch(
-                minTimestamp = oneHourBeforeDateTime,
-                maxTimestamp = presentDateTime
-            )
-            eventRepository.reload(newList)
-            preferences.lastListLoadTimestamp = LocalDateTime.now()
-            eventRepository.getLatestItem()?.let { event ->
-                notificationManager.showLatest(event)
-            }
-            Result.success()
-        } catch (e: Throwable) {
-            e.printStackTrace()
-            Result.failure()
-        } finally {
-            workManager.startLatestLoad()
-        }
+        /*  return try {
+              val presentDateTime = LocalDateTime.now(ZoneId.of("UTC"))
+              val oneHourBeforeDateTime = presentDateTime.minusDays(1)
+              val newList = eventRepository.fetch(
+                  minTimestamp = oneHourBeforeDateTime,
+                  maxTimestamp = presentDateTime
+              )
+              eventRepository.reload(newList)
+              preferences.lastListLoadTimestamp = LocalDateTime.now()
+              eventRepository.getLatestItem()?.let { event ->
+                  notificationManager.showLatest(event)
+              }
+              Result.success()
+          } catch (e: Throwable) {
+              e.printStackTrace()
+              Result.failure()
+          } finally {
+              workManager.startLatestLoad()
+          }*/
+        return Result.failure()
     }
 
 }
