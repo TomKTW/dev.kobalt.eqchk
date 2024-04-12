@@ -12,7 +12,7 @@ fun MainTheme(
 ) {
     MaterialTheme(
         colors = if (!isSystemInDarkTheme()) lightColors(
-            primary = MainColors.primaryLight,
+            /* primary = MainColors.primaryLight,
             primaryVariant = MainColors.primaryLight,
             secondary = MainColors.primaryLight,
             secondaryVariant = MainColors.primaryLight,
@@ -23,9 +23,9 @@ fun MainTheme(
             onSecondary = MainColors.white,
             onBackground = MainColors.black,
             onSurface = MainColors.white,
-            onError = MainColors.white
+            onError = MainColors.white */
         ) else darkColors(
-            primary = MainColors.primaryDark,
+            /* primary = MainColors.primaryDark,
             primaryVariant = MainColors.primaryDark,
             secondary = MainColors.primaryDark,
             secondaryVariant = MainColors.primaryDark,
@@ -36,7 +36,7 @@ fun MainTheme(
             onSecondary = MainColors.white,
             onBackground = MainColors.white,
             onSurface = MainColors.white,
-            onError = MainColors.white
+            onError = MainColors.white */
         ),
         content = content
     )
