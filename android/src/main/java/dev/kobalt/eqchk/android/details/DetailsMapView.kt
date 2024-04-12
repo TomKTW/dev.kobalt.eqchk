@@ -17,7 +17,6 @@ import org.osmdroid.views.overlay.Overlay
 import org.osmdroid.views.overlay.OverlayItem
 import kotlin.properties.Delegates
 
-
 class DetailsMapView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null

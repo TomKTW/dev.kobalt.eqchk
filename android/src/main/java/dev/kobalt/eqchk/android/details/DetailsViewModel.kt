@@ -4,69 +4,35 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dev.kobalt.eqchk.android.component.LocationManager
-import dev.kobalt.eqchk.android.event.EventEntity
 import dev.kobalt.eqchk.android.event.EventRepository
-import dev.kobalt.eqchk.android.main.MainApplication
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class DetailsViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle,
-    private val mainApplication: MainApplication,
-    private val locationManager: LocationManager,
-    private val eventRepository: EventRepository,
+    private val eventRepository: EventRepository
 ) : ViewModel() {
 
-    private val id: String get() = checkNotNull(savedStateHandle[DetailsScreenArgument.ID])
+    private val id: String get() = checkNotNull(savedStateHandle["id"])
 
-    val locationPointFlow get() = locationManager.locationPointFlow
+    private val isLoadingFlow = MutableStateFlow(false)
+    private val eventFlow = eventRepository.getEvent(id).map { event -> event?.let { DetailsEventEntity(it) } }
 
-    val dataState = MutableSharedFlow<EventEntity?>(1).apply {
-        viewModelScope.launch { emit(null) }
-    }
+    val viewState = MutableStateFlow(DetailsViewState(false, null))
+        .combine(isLoadingFlow) { state, isLoading -> state.copy(isLoading = isLoading) }
+        .combine(eventFlow) { state, event -> state.copy(event = event) }
 
-    val loadState = MutableSharedFlow<DetailsLoadViewState>(1).apply {
-        viewModelScope.launch { emit(DetailsLoadViewState.Ready) }
-    }
-
-    val viewState = dataState.combine(locationPointFlow) { event, location ->
-        if (event == null) return@combine null
-        DetailsViewState(DetailsEventEntity(event))
-    }
-
-    init {
-        load(id)
-    }
-
-    fun load(id: String) {
-        if (loadState.replayCache.firstOrNull() == DetailsLoadViewState.Ready) {
-            viewModelScope.launch(Dispatchers.IO) {
-                loadState.emit(DetailsLoadViewState.Loading)
-                loadState.emit(execute(id).also {
-                    when (it) {
-                        is DetailsLoadViewState.Result.Success -> dataState.emit(it.data)
-                        else -> dataState.emit(null)
-                    }
-                })
-            }
+    fun refresh() {
+        viewModelScope.launch(Dispatchers.IO) {
+            isLoadingFlow.emit(true)
+            eventRepository.apply { fetchById(id)?.also { delete(it); insert(it) } }
+            isLoadingFlow.emit(false)
         }
     }
 
-    private suspend fun execute(
-        id: String
-    ): DetailsLoadViewState.Result = runCatching {
-        return DetailsLoadViewState.Result.Failure // DetailsLoadViewState.Result.Success(eventRepository.fetchItem(id)!!)
-    }.getOrElse {
-        it.printStackTrace(); DetailsLoadViewState.Result.Failure
-    }
-
-}
-
-object DetailsScreenArgument {
-    const val ID = "id"
 }

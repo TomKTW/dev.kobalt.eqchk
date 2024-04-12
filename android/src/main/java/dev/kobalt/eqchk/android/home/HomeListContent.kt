@@ -25,7 +25,6 @@ fun HomeListContent(
         refreshing = viewState.isLoading,
         onRefresh = { onRefresh.invoke() }
     )
-
     Box(
         modifier = Modifier
             .pullRefresh(pullToRefreshState),

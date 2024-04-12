@@ -33,7 +33,7 @@ class HomeViewModel @Inject constructor(
     fun refresh() {
         viewModelScope.launch(Dispatchers.IO) {
             isLoadingFlow.emit(true)
-            eventRepository.apply { fetch().let { deleteAll(); insertAll(it) } }
+            eventRepository.apply { fetch().also { deleteAll(); insertAll(it) } }
             isLoadingFlow.emit(false)
         }
     }

@@ -12,7 +12,6 @@ import dev.kobalt.eqchk.android.component.NotificationManager
 import dev.kobalt.eqchk.android.component.Preferences
 import dev.kobalt.eqchk.android.component.WorkManager
 import dev.kobalt.eqchk.android.event.EventApi
-import dev.kobalt.eqchk.android.event.EventLocalCache
 import dev.kobalt.eqchk.android.event.EventRepository
 import io.ktor.client.*
 import io.ktor.client.engine.android.*
@@ -62,12 +61,6 @@ object MainModule {
     @Singleton
     fun provideEventApiService(httpClient: HttpClient): EventApi {
         return EventApi(httpClient)
-    }
-
-    @Provides
-    @Singleton
-    fun provideEventLocalCache(database: MainDatabase): EventLocalCache {
-        return EventLocalCache(database.eventDao())
     }
 
     @Provides

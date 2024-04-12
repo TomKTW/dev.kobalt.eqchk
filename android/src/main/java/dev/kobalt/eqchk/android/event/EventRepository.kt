@@ -1,5 +1,6 @@
 package dev.kobalt.eqchk.android.event
 
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class EventRepository @Inject constructor(
@@ -8,6 +9,22 @@ class EventRepository @Inject constructor(
 ) {
 
     val items get() = dao.selectAll()
+
+    fun getEvent(id: String): Flow<EventEntity?> {
+        return dao.selectItemFlow(id)
+    }
+
+    suspend fun fetchById(id: String): EventEntity? {
+        return api.fetchItem(id)
+    }
+
+    suspend fun delete(event: EventEntity) {
+        return dao.delete(event.id)
+    }
+
+    suspend fun insert(event: EventEntity) {
+        return dao.insert(event)
+    }
 
     suspend fun fetch(): List<EventEntity> {
         return api.fetch()

@@ -35,7 +35,7 @@ fun DetailsScreen(
                 },
                 actions = {
                     IconButton(
-                        onClick = { viewState?.entity?.detailsUri?.let { navigateOpen(it) } }
+                        onClick = { viewState?.event?.detailsUri?.let { navigateOpen(it) } }
                     ) {
                         Icon(
                             painter = painterResource(R.drawable.ic_baseline_open_in_browser_24),
@@ -47,7 +47,8 @@ fun DetailsScreen(
         },
         content = {
             DetailsContent(
-                event = viewState?.entity,
+                viewState = viewState,
+                onRefresh = {},
                 modifier = Modifier.padding(it)
             )
         },

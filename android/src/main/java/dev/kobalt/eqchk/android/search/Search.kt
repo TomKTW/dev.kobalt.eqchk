@@ -1,8 +1,7 @@
-package dev.kobalt.eqchk.android.main
+package dev.kobalt.eqchk.android.search
 
 import androidx.compose.runtime.Composable
 import androidx.hilt.navigation.compose.hiltViewModel
-import dev.kobalt.eqchk.android.search.SearchViewModel
 
 @Composable
 fun SearchRoute(

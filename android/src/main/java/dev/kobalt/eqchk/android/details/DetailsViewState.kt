@@ -1,7 +1,6 @@
 package dev.kobalt.eqchk.android.details
 
 import android.net.Uri
-import dev.kobalt.eqchk.android.component.LocationConverter
 import dev.kobalt.eqchk.android.event.EventEntity
 import dev.kobalt.eqchk.android.extension.ifLet
 import dev.kobalt.eqchk.android.extension.toEventIntensity
@@ -9,9 +8,11 @@ import dev.kobalt.eqchk.android.extension.toRelativeTimeString
 import java.math.RoundingMode
 import java.time.LocalDateTime
 import java.time.ZoneId
+import java.time.format.DateTimeFormatter
 
 data class DetailsViewState(
-    val entity: DetailsEventEntity
+    val isLoading: Boolean,
+    val event: DetailsEventEntity?
 )
 
 @JvmInline
@@ -21,18 +22,22 @@ value class DetailsEventEntity(
 
     val id: String get() = entity.id
 
-    val magnitude: String get() = entity.magnitude?.setScale(1, RoundingMode.HALF_EVEN)?.toString() ?: "-.-"
+    val magnitude: String? get() = entity.magnitude?.setScale(1, RoundingMode.HALF_EVEN)?.toString()
 
-    val time: String get() = entity.timestamp?.toRelativeTimeString(LocalDateTime.now(ZoneId.of("UTC"))) ?: "--"
+    val timeAgo: String? get() = entity.timestamp?.toRelativeTimeString(LocalDateTime.now(ZoneId.of("UTC")))
 
-    val location: String get() = entity.location ?: "Somewhere on Earth"
+    val timeStamp: String? get() = entity.timestamp?.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
 
-    val coordinates: String
+    val location: String? get() = entity.location
+
+    val coordinates: String?
         get() = ifLet(entity.latitude, entity.longitude) { latitude, longitude ->
-            LocationConverter.locationToStringDMS(latitude, longitude, 1)
-        } ?: "0 N, 0 E"
+            "${latitude.toBigDecimal().setScale(6, RoundingMode.HALF_EVEN)}, ${
+                longitude.toBigDecimal().setScale(6, RoundingMode.HALF_EVEN)
+            }"
+        }
 
-    val depth: String get() = entity.depth?.toBigDecimal()?.setScale(0, RoundingMode.HALF_EVEN)?.toString() ?: "-"
+    val depth: String? get() = entity.depth?.toBigDecimal()?.setScale(0, RoundingMode.HALF_EVEN)?.toString()
 
     val tectonicSummary: String? get() = entity.tectonicSummary
 
