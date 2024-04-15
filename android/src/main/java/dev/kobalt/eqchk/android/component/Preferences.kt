@@ -2,15 +2,12 @@ package dev.kobalt.eqchk.android.component
 
 import android.content.Context
 import androidx.preference.PreferenceManager
-import dev.kobalt.eqchk.android.base.BaseContext
 import dev.kobalt.eqchk.android.extension.toLocalDateTime
 import dev.kobalt.eqchk.android.extension.toString
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
-class Preferences(private val context: Context) : BaseContext {
-
-    override fun requestContext(): Context = context.applicationContext
+class Preferences(private val context: Context) {
 
     val native get() = PreferenceManager.getDefaultSharedPreferences(context)!!
 

@@ -19,9 +19,9 @@ class HomeViewModel @Inject constructor(
 
     private val listFlow = eventRepository.items.map { list -> list.map { HomeEventEntity(it) } }
     private val isLoadingFlow = MutableStateFlow(false)
-    private val pageFlow = MutableStateFlow(HomePage.List)
+    private val pageFlow = MutableStateFlow(HomePage.Events)
 
-    val viewState: Flow<HomeViewState> = MutableStateFlow(HomeViewState(false, HomePage.List, emptyList()))
+    val viewState: Flow<HomeViewState> = MutableStateFlow(HomeViewState(false, HomePage.Events, emptyList()))
         .combine(isLoadingFlow) { state, isLoading -> state.copy(isLoading = isLoading) }
         .combine(pageFlow) { state, page -> state.copy(page = page) }
         .combine(listFlow) { state, list -> state.copy(list = list) }

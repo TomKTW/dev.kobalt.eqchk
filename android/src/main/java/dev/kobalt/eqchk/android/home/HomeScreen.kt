@@ -20,7 +20,7 @@ fun HomeScreen(
     val viewState: HomeViewState by viewModel.viewState.collectAsStateWithLifecycle(
         HomeViewState(
             false,
-            HomePage.List,
+            HomePage.Events,
             emptyList()
         )
     )
@@ -36,8 +36,8 @@ fun HomeScreen(
                         onClick = { navigateToSearch.invoke() }
                     ) {
                         Icon(
-                            painter = painterResource(R.drawable.ic_baseline_search_24),
-                            contentDescription = "Search"
+                            painter = painterResource(R.drawable.ic_baseline_filter_list_24),
+                            contentDescription = "Filter"
                         )
                     }
                 }
@@ -45,11 +45,7 @@ fun HomeScreen(
         },
         content = {
             when (viewState.page) {
-                HomePage.Map -> HomeMapContent(
-                    modifier = Modifier.padding(it)
-                )
-
-                HomePage.List -> HomeListContent(
+                HomePage.Events -> HomeListContent(
                     viewState = viewState,
                     onRefresh = {
                         viewModel.refresh()
@@ -60,7 +56,7 @@ fun HomeScreen(
                     modifier = Modifier.padding(it)
                 )
 
-                HomePage.Options -> HomeOptionsContent(
+                HomePage.Map -> HomeMapContent(
                     modifier = Modifier.padding(it)
                 )
             }
@@ -68,16 +64,7 @@ fun HomeScreen(
         bottomBar = {
             BottomAppBar {
                 IconButton(
-                    onClick = { viewModel.updatePage(HomePage.Map) },
-                    modifier = Modifier.weight(1f)
-                ) {
-                    Icon(
-                        painter = painterResource(R.drawable.ic_baseline_map_24),
-                        contentDescription = "Map"
-                    )
-                }
-                IconButton(
-                    onClick = { viewModel.updatePage(HomePage.List) },
+                    onClick = { viewModel.updatePage(HomePage.Events) },
                     modifier = Modifier.weight(1f)
                 ) {
                     Icon(
@@ -86,12 +73,12 @@ fun HomeScreen(
                     )
                 }
                 IconButton(
-                    onClick = { viewModel.updatePage(HomePage.Options) },
+                    onClick = { viewModel.updatePage(HomePage.Map) },
                     modifier = Modifier.weight(1f)
                 ) {
                     Icon(
-                        painter = painterResource(R.drawable.ic_baseline_settings_24),
-                        contentDescription = "Settings"
+                        painter = painterResource(R.drawable.ic_baseline_map_24),
+                        contentDescription = "Map"
                     )
                 }
             }

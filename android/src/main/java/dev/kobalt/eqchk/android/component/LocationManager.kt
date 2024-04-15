@@ -3,10 +3,11 @@ package dev.kobalt.eqchk.android.component
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.pm.PackageManager
+import androidx.core.content.ContextCompat
 import androidx.core.content.getSystemService
 import androidx.core.location.LocationManagerCompat
 import androidx.core.os.CancellationSignal
-import dev.kobalt.eqchk.android.base.BaseContext
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.asExecutor
@@ -15,9 +16,7 @@ import kotlinx.coroutines.launch
 
 class LocationManager(
     private val context: Context
-) : BaseContext {
-
-    override fun requestContext(): Context = context.applicationContext
+) {
 
     private val native get() = context.getSystemService<android.location.LocationManager>()!!
     private val scope = CoroutineScope(Dispatchers.IO)
@@ -31,10 +30,10 @@ class LocationManager(
 
     @SuppressLint("MissingPermission")
     fun fetch() {
-        if (arePermissionsGranted(
+        if (listOf(
                 Manifest.permission.ACCESS_FINE_LOCATION,
                 Manifest.permission.ACCESS_COARSE_LOCATION
-            )
+            ).all { ContextCompat.checkSelfPermission(context, it) == PackageManager.PERMISSION_GRANTED }
         ) {
             if (cancelSignal?.isCanceled != true) {
                 cancelSignal?.cancel()

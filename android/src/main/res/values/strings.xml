@@ -11,9 +11,8 @@
     <string name="home_map_filter_community_intensity">Community intensity</string>
     <string name="home_location_permission_granted">Permission for location has been granted.</string>
     <string name="home_location_permission_denied">Permission for location is required to show earthquake distance.</string>
+    <string name="home_events">Events</string>
     <string name="home_map">Map</string>
-    <string name="home_list">List</string>
-    <string name="home_options">Options</string>
     <string name="options_location_subtitle">Your location is used to show distance from earthquakes</string>
     <string name="options_location_title">Location</string>
     <string name="options_latest_title">Last earthquake</string>

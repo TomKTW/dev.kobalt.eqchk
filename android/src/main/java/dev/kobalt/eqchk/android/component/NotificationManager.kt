@@ -10,16 +10,13 @@ import android.content.Intent
 import android.os.Build
 import androidx.core.app.NotificationCompat
 import dev.kobalt.eqchk.android.R
-import dev.kobalt.eqchk.android.base.BaseContext
 import dev.kobalt.eqchk.android.event.EventEntity
 import dev.kobalt.eqchk.android.main.MainActivity
 import java.math.RoundingMode
 
 class NotificationManager(
     private val context: Context
-) : BaseContext {
-
-    override fun requestContext(): Context = context.applicationContext
+) {
 
     val native get() = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
@@ -37,7 +34,7 @@ class NotificationManager(
             native.createNotificationChannel(
                 NotificationChannel(
                     lastChannelId,
-                    getResourceString(R.string.notification_latest_channel_title),
+                    context.getString(R.string.notification_latest_channel_title),
                     NotificationManager.IMPORTANCE_DEFAULT
                 ).apply {
                     enableVibration(true)
@@ -70,7 +67,7 @@ class NotificationManager(
             lastId,
             NotificationCompat.Builder(context, lastChannelId)
                 .setContentTitle(
-                    getResourceString(
+                    context.getString(
                         R.string.notification_latest_title,
                         event.magnitude?.setScale(1, RoundingMode.HALF_EVEN).toString()
                     )

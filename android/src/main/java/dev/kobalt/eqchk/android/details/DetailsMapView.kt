@@ -6,9 +6,10 @@ import android.graphics.drawable.GradientDrawable
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.MotionEvent
+import androidx.preference.PreferenceManager
 import dev.kobalt.eqchk.android.component.LocationPoint
 import dev.kobalt.eqchk.android.event.EventEntity
-import dev.kobalt.eqchk.android.view.MapView
+import org.osmdroid.config.Configuration
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory
 import org.osmdroid.util.GeoPoint
 import org.osmdroid.views.CustomZoomButtonsController
@@ -16,6 +17,18 @@ import org.osmdroid.views.overlay.ItemizedIconOverlay
 import org.osmdroid.views.overlay.Overlay
 import org.osmdroid.views.overlay.OverlayItem
 import kotlin.properties.Delegates
+
+open class MapView @JvmOverloads constructor(
+    context: Context,
+    attrs: AttributeSet? = null
+) : org.osmdroid.views.MapView(context, attrs) {
+
+    companion object {
+        fun initialize(context: Context) = Configuration.getInstance()
+            .load(context, PreferenceManager.getDefaultSharedPreferences(context))
+    }
+
+}
 
 class DetailsMapView @JvmOverloads constructor(
     context: Context,

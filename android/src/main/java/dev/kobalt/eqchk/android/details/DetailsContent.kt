@@ -5,6 +5,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.Divider
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
@@ -14,6 +15,7 @@ import androidx.compose.material.pullrefresh.rememberPullRefreshState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -76,8 +78,8 @@ fun DetailsContent(
                     image = painterResource(R.drawable.ic_baseline_readiness_score_24),
                     title = "Intensity",
                     value = listOfNotNull(
-                        event.estimatedIntensityScale?.let { "Estimated: ${it.label}" },
-                        event.communityIntensityScale?.let { "Reported: ${it.label}" }
+                        event.estimatedIntensityScale?.let { "Estimation: ${it.label}" },
+                        event.communityIntensityScale?.let { "Reports: ${it.label}" }
                     ).takeIf { it.isNotEmpty() }?.joinToString("\n") ?: "No felt reports"
                 )
                 ImageTitleValueLabel(
@@ -137,6 +139,10 @@ fun ImageTitleValueLabel(
                 .align(Alignment.CenterVertically)
         )
     }
+    Divider(
+        color = Color.Black.copy(alpha = 0.1f),
+        modifier = Modifier.height(1.dp).fillMaxWidth()
+    )
 }
 
 @Preview

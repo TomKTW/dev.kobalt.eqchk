@@ -73,6 +73,8 @@ dependencies {
     implementation("androidx.compose.ui:ui:1.6.5")
     // AndroidX Compose UI Tools
     implementation("androidx.compose.ui:ui-tooling:1.6.5")
+    // AndroidX Compose Material Design Version 3 Components
+    implementation("androidx.compose.material3:material3-android:1.2.1")
     // AndroidX Core Kotlin Extensions
     implementation("androidx.core:core-ktx:1.7.0")
     // AndroidX Fragment Kotlin Extensions

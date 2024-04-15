@@ -11,33 +11,7 @@ fun MainTheme(
     content: @Composable () -> Unit
 ) {
     MaterialTheme(
-        colors = if (!isSystemInDarkTheme()) lightColors(
-            /* primary = MainColors.primaryLight,
-            primaryVariant = MainColors.primaryLight,
-            secondary = MainColors.primaryLight,
-            secondaryVariant = MainColors.primaryLight,
-            background = MainColors.white,
-            surface = MainColors.primaryLight,
-            error = MainColors.primaryLight,
-            onPrimary = MainColors.white,
-            onSecondary = MainColors.white,
-            onBackground = MainColors.black,
-            onSurface = MainColors.white,
-            onError = MainColors.white */
-        ) else darkColors(
-            /* primary = MainColors.primaryDark,
-            primaryVariant = MainColors.primaryDark,
-            secondary = MainColors.primaryDark,
-            secondaryVariant = MainColors.primaryDark,
-            background = MainColors.black,
-            surface = MainColors.primaryDark,
-            error = MainColors.primaryDark,
-            onPrimary = MainColors.white,
-            onSecondary = MainColors.white,
-            onBackground = MainColors.white,
-            onSurface = MainColors.white,
-            onError = MainColors.white */
-        ),
+        colors = if (!isSystemInDarkTheme()) lightColors() else darkColors(),
         content = content
     )
 }

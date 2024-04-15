@@ -51,28 +51,6 @@ fun DetailsScreen(
                 onRefresh = {},
                 modifier = Modifier.padding(it)
             )
-        },
-        bottomBar = {
-            BottomAppBar {
-                IconButton(
-                    onClick = { },
-                    modifier = Modifier.weight(1f)
-                ) {
-                    Icon(
-                        painter = painterResource(R.drawable.ic_baseline_list_alt_24),
-                        contentDescription = "Info"
-                    )
-                }
-                IconButton(
-                    onClick = { },
-                    modifier = Modifier.weight(1f)
-                ) {
-                    Icon(
-                        painter = painterResource(R.drawable.ic_baseline_map_24),
-                        contentDescription = "Map"
-                    )
-                }
-            }
         }
     )
 }

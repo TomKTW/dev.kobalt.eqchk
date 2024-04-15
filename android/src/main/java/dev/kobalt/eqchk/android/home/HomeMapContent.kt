@@ -14,9 +14,9 @@ import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.content.ContextCompat
 import dev.kobalt.eqchk.android.R
 import dev.kobalt.eqchk.android.component.LocationPoint
+import dev.kobalt.eqchk.android.details.MapView
 import dev.kobalt.eqchk.android.event.EventEntity
 import dev.kobalt.eqchk.android.extension.toEventIntensity
-import dev.kobalt.eqchk.android.view.MapView
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory
 import org.osmdroid.util.GeoPoint
 import org.osmdroid.views.CustomZoomButtonsController
