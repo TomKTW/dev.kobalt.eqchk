@@ -1,7 +1,6 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
-    id("org.jetbrains.kotlin.kapt")
     id("kotlin-parcelize")
     id("androidx.navigation.safeargs.kotlin")
     id("com.google.dagger.hilt.android")
@@ -54,13 +53,9 @@ android {
 
 dependencies {
     // Android JDK Desugaring
-    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:1.1.5")
-    // AndroidX Core Kotlin Extensions
-    implementation("androidx.core:core-ktx:1.7.0")
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.4")
     // AndroidX Activity Compose Support
-    implementation("androidx.activity:activity-compose:1.6.5")
-    // AndroidX AppCompat
-    implementation("androidx.appcompat:appcompat:1.4.1")
+    implementation("androidx.activity:activity-compose:1.8.2")
     // AndroidX Compose Foundation Components
     implementation("androidx.compose.foundation:foundation:1.6.5")
     // AndroidX Compose Foundation Layout Components
@@ -76,21 +71,21 @@ dependencies {
     // AndroidX Compose Material Design Version 3 Components
     implementation("androidx.compose.material3:material3-android:1.2.1")
     // AndroidX Core Kotlin Extensions
-    implementation("androidx.core:core-ktx:1.7.0")
+    implementation("androidx.core:core-ktx:1.12.0")
     // AndroidX Fragment Kotlin Extensions
-    implementation("androidx.fragment:fragment-ktx:1.4.1")
+    implementation("androidx.fragment:fragment-ktx:1.6.2")
     // AndroidX Lifecycle Extensions
     implementation("androidx.lifecycle:lifecycle-extensions:2.2.0")
     // AndroidX Lifecycle Extensions
     implementation("androidx.lifecycle:lifecycle-runtime-compose:2.7.0")
     // AndroidX Lifecycle Java 8 Common
-    implementation("androidx.lifecycle:lifecycle-common-java8:2.4.1")
+    implementation("androidx.lifecycle:lifecycle-common-java8:2.7.0")
     // AndroidX Lifecycle Runtime Kotlin Extensions
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.4.1")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")
     // AndroidX Lifecycle LiveData Kotlin Extensions
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.4.1")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.7.0")
     // AndroidX Lifecycle ViewModel Kotlin Extensions
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
     // AndroidX Navigation Compose Support
     implementation("androidx.navigation:navigation-compose:2.7.7")
     // AndroidX Navigation Fragment Stack
@@ -98,7 +93,7 @@ dependencies {
     // AndroidX Navigation UI Stack
     implementation("androidx.navigation:navigation-ui-ktx:2.7.7")
     // AndroidX Preferences Kotlin Extensions
-    implementation("androidx.preference:preference-ktx:1.2.0")
+    implementation("androidx.preference:preference-ktx:1.2.1")
     // AndroidX Room Database Framework
     implementation("androidx.room:room-runtime:2.6.1")
     // AndroidX Room Database Kotlin Extensions
@@ -108,43 +103,37 @@ dependencies {
     // AndroidX Swipe Refresh Layout
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
     // AndroidX WorkManager Kotlin Extensions
-    implementation("androidx.work:work-runtime-ktx:2.7.1")
-    // Google Material Design
-    implementation("com.google.android.material:material:1.5.0")
+    implementation("androidx.work:work-runtime-ktx:2.9.0")
     // Hilt Dependency Injection Framework
     implementation("com.google.dagger:hilt-android:2.51.1")
     // Hilt Dependency Injection Annotation Processor
-    kapt("com.google.dagger:hilt-android-compiler:2.51.1")
+    ksp("com.google.dagger:hilt-android-compiler:2.51.1")
     // Hilt Dependency Injection Compose Navigation Support
     implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
     // Hilt Dependency Injection Worker Support
     implementation("androidx.hilt:hilt-work:1.2.0")
     // Hilt Dependency Injection AndroidX Annotation Processor
-    kapt("androidx.hilt:hilt-compiler:1.2.0")
+    ksp("androidx.hilt:hilt-compiler:1.2.0")
     // KotlinX Coroutines Core
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.0")
     // KotlinX Coroutines Android
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.0")
     // KotlinX Serialization Json
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.2.2")
     // Ktor HTTP Android Client
-    implementation("io.ktor:ktor-client-android:1.6.1")
+    implementation("io.ktor:ktor-client-android:2.3.10")
     // Ktor HTTP Logging
-    implementation("io.ktor:ktor-client-logging:1.6.1")
+    implementation("io.ktor:ktor-client-logging:2.3.10")
     // OpenStreetMaps Map View
-    implementation("org.osmdroid:osmdroid-android:6.1.11")
+    implementation("org.osmdroid:osmdroid-android:6.1.18")
     // OpenStreetMaps Extras
-    implementation("com.github.MKergall:osmbonuspack:6.8.0")
+    implementation("com.github.MKergall:osmbonuspack:6.9.0")
     // Simple Logging Facade
     implementation("org.slf4j:slf4j-android:1.7.32")
     // JUnit
     testImplementation("junit:junit:4.13.2")
     // AndroidX JUnit
-    androidTestImplementation("androidx.test.ext:junit:1.1.3")
+    androidTestImplementation("androidx.test.ext:junit:1.1.5")
     // AndroidX Espresso Core
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
-}
-
-kapt {
-    correctErrorTypes = true
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 }

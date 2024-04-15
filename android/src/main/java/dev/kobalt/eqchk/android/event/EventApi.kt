@@ -16,7 +16,7 @@ class EventApi @Inject constructor(
 ) {
 
     suspend fun fetchItem(id: String?): EventEntity? {
-        httpClient.get<HttpStatement>(HttpRequestBuilder().apply {
+        httpClient.prepareGet(HttpRequestBuilder().apply {
             url {
                 protocol = URLProtocol.HTTPS
                 host = "earthquake.usgs.gov"
@@ -29,7 +29,7 @@ class EventApi @Inject constructor(
         }).execute().let { response ->
             return when {
                 response.status.isSuccess() -> {
-                    response.readText().toJsonElement().jsonObject.toEventEntity()
+                    response.bodyAsText().toJsonElement().jsonObject.toEventEntity()
                 }
 
                 response.status.value == 404 -> null
@@ -54,7 +54,7 @@ class EventApi @Inject constructor(
         range: Double? = null,
         limit: Int? = null
     ): List<EventEntity> {
-        httpClient.get<HttpStatement>(HttpRequestBuilder().apply {
+        httpClient.prepareGet(HttpRequestBuilder().apply {
             url {
                 protocol = URLProtocol.HTTPS
                 host = "earthquake.usgs.gov"
@@ -84,7 +84,7 @@ class EventApi @Inject constructor(
         }).execute().let { response ->
             when {
                 response.status.isSuccess() -> {
-                    return response.readText().toJsonElement()
+                    return response.bodyAsText().toJsonElement()
                         .jsonObject["features"]?.jsonArray?.map {
                         it.jsonObject.toEventEntity()
                     }.orEmpty()
