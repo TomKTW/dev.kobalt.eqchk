@@ -1,5 +1,6 @@
 package dev.kobalt.eqchk.android.event
 
+import dev.kobalt.eqchk.android.home.EventFilter
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
@@ -26,8 +27,8 @@ class EventRepository @Inject constructor(
         return dao.insert(event)
     }
 
-    suspend fun fetch(): List<EventEntity> {
-        return api.fetch()
+    suspend fun fetch(filter: EventFilter): List<EventEntity> {
+        return api.fetchList(filter)
     }
 
     suspend fun deleteAll() {

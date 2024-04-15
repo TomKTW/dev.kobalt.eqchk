@@ -15,7 +15,7 @@ import androidx.compose.ui.window.DialogProperties
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun FilterDateTimeRangeSelectDialog(onDismissRequest: () -> Unit) {
+fun FilterDateTimeDialog(onDismissRequest: () -> Unit) {
     Dialog(
         properties = DialogProperties(
             usePlatformDefaultWidth = false

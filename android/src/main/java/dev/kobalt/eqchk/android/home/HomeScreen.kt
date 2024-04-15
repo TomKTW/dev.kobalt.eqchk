@@ -15,17 +15,16 @@ import dev.kobalt.eqchk.android.R
 fun HomeScreen(
     viewModel: HomeViewModel = hiltViewModel(),
     navigateToDetails: (String) -> Unit,
-    navigateToSearch: () -> Unit
+    navigateToFilter: () -> Unit
 ) {
     val viewState: HomeViewState by viewModel.viewState.collectAsStateWithLifecycle(
         HomeViewState(
             false,
             HomePage.Events,
-            emptyList()
+            emptyList(),
+            EventFilter()
         )
     )
-
-
 
     Scaffold(
         topBar = {
@@ -33,7 +32,7 @@ fun HomeScreen(
                 title = { Text(stringResource(viewState.page.titleResId)) },
                 actions = {
                     IconButton(
-                        onClick = { navigateToSearch.invoke() }
+                        onClick = { navigateToFilter.invoke() }
                     ) {
                         Icon(
                             painter = painterResource(R.drawable.ic_baseline_filter_list_24),

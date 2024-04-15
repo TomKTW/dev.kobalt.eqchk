@@ -21,7 +21,8 @@ class HomeViewModel @Inject constructor(
     private val isLoadingFlow = MutableStateFlow(false)
     private val pageFlow = MutableStateFlow(HomePage.Events)
 
-    val viewState: Flow<HomeViewState> = MutableStateFlow(HomeViewState(false, HomePage.Events, emptyList()))
+    val viewState: Flow<HomeViewState> =
+        MutableStateFlow(HomeViewState(false, HomePage.Events, emptyList(), EventFilter()))
         .combine(isLoadingFlow) { state, isLoading -> state.copy(isLoading = isLoading) }
         .combine(pageFlow) { state, page -> state.copy(page = page) }
         .combine(listFlow) { state, list -> state.copy(list = list) }
@@ -33,7 +34,7 @@ class HomeViewModel @Inject constructor(
     fun refresh() {
         viewModelScope.launch(Dispatchers.IO) {
             isLoadingFlow.emit(true)
-            eventRepository.apply { fetch().also { deleteAll(); insertAll(it) } }
+            eventRepository.apply { fetch(EventFilter()).also { deleteAll(); insertAll(it) } }
             isLoadingFlow.emit(false)
         }
     }
