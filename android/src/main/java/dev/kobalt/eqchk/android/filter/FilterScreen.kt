@@ -12,11 +12,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import dev.kobalt.eqchk.android.R
 import dev.kobalt.eqchk.android.details.ImageTitleValueLabel
+import java.math.BigDecimal
 
 @Composable
 fun FilterScreen(
     navigateBack: () -> Unit,
 ) {
+    val magnitudeRange = remember { mutableStateOf(BigDecimal("0.1")..BigDecimal("10.0")) }
+
     val showFilterMagnitudeDialog = remember { mutableStateOf(false) }
     val showFilterLocationDialog = remember { mutableStateOf(false) }
     val showFilterDateTimeDialog = remember { mutableStateOf(false) }
@@ -34,16 +37,6 @@ fun FilterScreen(
                             contentDescription = "Back"
                         )
                     }
-                },
-                actions = {
-                    IconButton(
-                        onClick = { navigateBack() }
-                    ) {
-                        Icon(
-                            painter = painterResource(R.drawable.ic_baseline_south_24),
-                            contentDescription = "Save"
-                        )
-                    }
                 }
             )
         },
@@ -54,7 +47,17 @@ fun FilterScreen(
                 ImageTitleValueLabel(
                     image = painterResource(R.drawable.ic_baseline_earthquake_24),
                     title = "Magnitude",
-                    value = "Between M5.0 and M6.0",
+                    value = when (magnitudeRange.value.start) {
+                        BigDecimal("0.1") -> when (magnitudeRange.value.endInclusive) {
+                            BigDecimal("10.0") -> "Any"
+                            else -> "Below M${magnitudeRange.value.endInclusive}"
+                        }
+
+                        else -> when (magnitudeRange.value.endInclusive) {
+                            BigDecimal("10.0") -> "Above M${magnitudeRange.value.start}"
+                            else -> "Between M${magnitudeRange.value.start} and M${magnitudeRange.value.endInclusive}"
+                        }
+                    },
                     onClick = { showFilterMagnitudeDialog.value = true }
                 )
                 ImageTitleValueLabel(
@@ -73,7 +76,9 @@ fun FilterScreen(
         }
     )
     if (showFilterMagnitudeDialog.value) FilterMagnitudeDialog(
-        onDismissRequest = { showFilterMagnitudeDialog.value = false }
+        currentMagnitudeRange = magnitudeRange.value,
+        onDismissRequest = { showFilterMagnitudeDialog.value = false },
+        onSubmit = { magnitudeRange.value = it }
     )
     if (showFilterLocationDialog.value) FilterLocationDialog(
         onDismissRequest = { showFilterLocationDialog.value = false }
