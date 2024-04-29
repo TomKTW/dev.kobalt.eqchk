@@ -17,8 +17,8 @@ import java.math.RoundingMode
 @Composable
 fun FilterMagnitudeDialog(
     currentMagnitudeRange: ClosedRange<BigDecimal>,
-    onDismissRequest: () -> Unit,
-    onSubmit: (ClosedRange<BigDecimal>) -> Unit
+    onDismiss: () -> Unit,
+    onSubmit: (range: ClosedRange<BigDecimal>) -> Unit
 ) {
     var sliderPosition by remember {
         mutableStateOf(
@@ -35,7 +35,7 @@ fun FilterMagnitudeDialog(
         properties = DialogProperties(
             usePlatformDefaultWidth = false
         ),
-        onDismissRequest = { onDismissRequest() }) {
+        onDismissRequest = { onDismiss() }) {
         Card(
             modifier = Modifier
                 .fillMaxWidth()
@@ -50,7 +50,7 @@ fun FilterMagnitudeDialog(
                     fontSize = 20.sp
                 )
                 Spacer(
-                    modifier = Modifier.height(8.dp)
+                    modifier = Modifier.height(16.dp)
                 )
                 Row {
                     Text(
@@ -79,13 +79,13 @@ fun FilterMagnitudeDialog(
                 )
                 Row {
                     TextButton(
-                        onClick = { onDismissRequest.invoke() },
+                        onClick = { onDismiss.invoke() },
                         modifier = Modifier.weight(1f)
                     ) {
                         Text("Cancel")
                     }
                     TextButton(
-                        onClick = { onSubmit.invoke(magnitudeMin..magnitudeMax); onDismissRequest.invoke() },
+                        onClick = { onSubmit.invoke(magnitudeMin..magnitudeMax); onDismiss.invoke() },
                         modifier = Modifier.weight(1f)
                     ) {
                         Text("Confirm")
