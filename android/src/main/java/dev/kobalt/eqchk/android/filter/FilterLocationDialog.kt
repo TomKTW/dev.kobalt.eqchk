@@ -81,7 +81,7 @@ fun FilterLocationDialog(
                 Box(
                     modifier = Modifier
                         .aspectRatio(1.0f)
-                        .clip(RoundedCornerShape(16.dp))
+                        .clip(CircleShape)
                 ) {
                     AndroidView(
                         modifier = Modifier.fillMaxWidth(),

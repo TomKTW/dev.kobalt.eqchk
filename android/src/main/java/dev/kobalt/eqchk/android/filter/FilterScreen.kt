@@ -14,6 +14,10 @@ import androidx.compose.ui.res.painterResource
 import dev.kobalt.eqchk.android.R
 import dev.kobalt.eqchk.android.details.ImageTitleValueLabel
 import java.math.BigDecimal
+import java.math.RoundingMode
+import java.time.Instant
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
 
 @Composable
 fun FilterScreen(
@@ -23,6 +27,8 @@ fun FilterScreen(
     val locationCoordinates = remember { mutableStateOf<Pair<Double, Double>?>(null) }
 
     val magnitudeRange = remember { mutableStateOf(BigDecimal("0.1")..BigDecimal("10.0")) }
+
+    val dateTimeRange = remember { mutableStateOf<Pair<Instant?, Instant?>>(null to null) }
 
     val showFilterMagnitudeDialog = remember { mutableStateOf(false) }
     val showFilterLocationDialog = remember { mutableStateOf(false) }
@@ -70,14 +76,32 @@ fun FilterScreen(
                     value = if (locationCoordinates.value == null) {
                         "Any"
                     } else {
-                        "${locationRange.intValue} km range within ${locationCoordinates.value}"
+                        "${locationRange.intValue} km range within ${
+                            locationCoordinates.value!!.first.toBigDecimal().setScale(2, RoundingMode.HALF_EVEN)
+                        }, ${locationCoordinates.value!!.second.toBigDecimal().setScale(2, RoundingMode.HALF_EVEN)}"
                     },
                     onClick = { showFilterLocationDialog.value = true }
                 )
                 ImageTitleValueLabel(
                     image = painterResource(R.drawable.ic_baseline_access_time_24),
                     title = "Date & Time",
-                    value = "Last 30 days",
+                    value = dateTimeRange.value.first?.let { startDateTime ->
+                        dateTimeRange.value.second?.let { endDateTime ->
+                            "Between ${
+                                startDateTime.atZone(ZoneId.systemDefault()).format(DateTimeFormatter.ISO_LOCAL_DATE)
+                            } and ${
+                                endDateTime.atZone(ZoneId.systemDefault()).format(DateTimeFormatter.ISO_LOCAL_DATE)
+                            }"
+                        } ?: run {
+                            "After ${
+                                startDateTime.atZone(ZoneId.systemDefault()).format(DateTimeFormatter.ISO_LOCAL_DATE)
+                            }"
+                        }
+                    } ?: dateTimeRange.value.second?.let { endDateTime ->
+                        "Before ${endDateTime.atZone(ZoneId.systemDefault()).format(DateTimeFormatter.ISO_LOCAL_DATE)}"
+                    } ?: run {
+                        "Most recent"
+                    },
                     onClick = { showFilterDateTimeDialog.value = true }
                 )
             }
@@ -96,6 +120,9 @@ fun FilterScreen(
         onDismiss = { showFilterLocationDialog.value = false }
     )
     if (showFilterDateTimeDialog.value) FilterDateTimeDialog(
-        onDismissRequest = { showFilterDateTimeDialog.value = false }
+        currentDateTimeRange = dateTimeRange.value,
+        onDismiss = { showFilterDateTimeDialog.value = false },
+        onClear = { dateTimeRange.value = null to null },
+        onSubmit = { dateTimeRange.value = it }
     )
 }
