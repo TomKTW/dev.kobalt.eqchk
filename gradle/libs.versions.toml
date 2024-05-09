@@ -1,0 +1,78 @@
+[versions]
+android-gradle-plugin = "8.2.0"
+androidx-compose-activity = "1.9.0"
+androidx-compose = "1.6.7"
+androidx-compose-material3 = "1.2.1"
+androidx-core = "1.13.1"
+androidx-fragment = "1.7.0"
+androidx-lifecycle-extensions = "2.2.0"
+androidx-lifecycle = "2.7.0"
+androidx-navigation = "2.7.7"
+androidx-preference = "1.2.1"
+androidx-room = "2.6.1"
+androidx-work = "2.9.0"
+espresso-androidx = "3.5.1"
+hilt-android = "2.51.1"
+hilt-androidx = "1.2.0"
+junit = "4.13.2"
+junit-androidx = "1.1.5"
+kotlin = "1.9.23"
+kotlinx-coroutines = "1.8.0"
+kotlinx-serialization-json = "1.2.2"
+ksp = "1.9.23-1.0.20"
+ktor = "2.3.10"
+osm = "6.1.18"
+osm-extras = "6.9.0"
+slf4j = "1.7.32"
+
+android-desugar = "2.0.4"
+
+[libraries]
+androidx-navigation-safeArgsGradlePlugin = { module = "androidx.navigation:navigation-safe-args-gradle-plugin", version.ref = "androidx-navigation" }
+
+android-desugar = { module = "com.android.tools:desugar_jdk_libs", version.ref = "android-desugar" }
+androidx-compose-activity = { module = "androidx.activity:activity-compose", version.ref = "androidx-compose-activity" }
+androidx-compose-foundation = { module = "androidx.compose.foundation:foundation", version.ref = "androidx-compose" }
+androidx-compose-foundation-layout = { module = "androidx.compose.foundation:foundation-layout", version.ref = "androidx-compose" }
+androidx-compose-material = { module = "androidx.compose.material:material", version.ref = "androidx-compose" }
+androidx-compose-runtime = { module = "androidx.compose.runtime:runtime", version.ref = "androidx-compose" }
+androidx-compose-ui = { module = "androidx.compose.ui:ui", version.ref = "androidx-compose" }
+androidx-compose-ui-tools = { module = "androidx.compose.ui:ui-tooling", version.ref = "androidx-compose" }
+androidx-compose-material3 = { module = "androidx.compose.material3:material3-android", version.ref = "androidx-compose-material3" }
+androidx-core = { module = "androidx.core:core-ktx", version.ref = "androidx-core" }
+androidx-fragment = { module = "androidx.fragment:fragment-ktx", version.ref = "androidx-fragment" }
+androidx-lifecycle-extensions = { module = "androidx.lifecycle:lifecycle-extensions", version.ref = "androidx-lifecycle-extensions" }
+androidx-lifecycle-runtime-compose = { module = "androidx.lifecycle:lifecycle-runtime-compose", version.ref = "androidx-lifecycle" }
+androidx-lifecycle-common = { module = "androidx.lifecycle:lifecycle-common-java8", version.ref = "androidx-lifecycle" }
+androidx-lifecycle-runtime = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "androidx-lifecycle" }
+androidx-lifecycle-viewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "androidx-lifecycle" }
+androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "androidx-navigation" }
+androidx-navigation-fragment = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "androidx-navigation" }
+androidx-navigation-ui = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "androidx-navigation" }
+androidx-preference = { module = "androidx.preference:preference-ktx", version.ref = "androidx-preference" }
+androidx-room = { module = "androidx.room:room-ktx", version.ref = "androidx-room" }
+androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "androidx-room" }
+androidx-work-runtime = { module = "androidx.work:work-runtime-ktx", version.ref = "androidx-work" }
+hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hilt-android" }
+hilt-android-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hilt-android" }
+hilt-androidx-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hilt-androidx" }
+hilt-androidx-work = { module = "androidx.hilt:hilt-work", version.ref = "hilt-androidx" }
+hilt-androidx-compiler = { module = "androidx.hilt:hilt-compiler", version.ref = "hilt-androidx" }
+kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinx-coroutines" }
+kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinx-coroutines" }
+kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization-json" }
+ktor-client-android = { module = "io.ktor:ktor-client-android", version.ref = "ktor" }
+ktor-client-logging = { module = "io.ktor:ktor-client-logging", version.ref = "ktor" }
+osm = { module = "org.osmdroid:osmdroid-android", version.ref = "osm" }
+osm-extras = { module = "com.github.MKergall:osmbonuspack", version.ref = "osm-extras" }
+slf4j = { module = "org.slf4j:slf4j-android", version.ref = "slf4j" }
+junit = { module = "junit:junit", version.ref = "junit" }
+junit-androidx = { module = "androidx.test.ext:junit", version.ref = "junit-androidx" }
+espresso-androidx = { module = "androidx.test.espresso:espresso-core", version.ref = "espresso-androidx" }
+
+[plugins]
+androidApplication = { id = "com.android.application", version.ref = "android-gradle-plugin" }
+androidLibrary = { id = "com.android.library", version.ref = "android-gradle-plugin" }
+daggerHiltAndroid = { id = "com.google.dagger.hilt.android", version.ref = "hilt-android" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+kotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }

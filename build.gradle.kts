@@ -1,10 +1,9 @@
 plugins {
-    id("com.android.application") version "8.2.0" apply false
-    id("com.google.dagger.hilt.android") version "2.51.1" apply false
-    id("com.google.devtools.ksp") version "1.9.23-1.0.20" apply false
-    id("org.jetbrains.kotlin.android") version "1.9.23" apply false
-
-
+    alias(libs.plugins.androidApplication) apply false
+    alias(libs.plugins.androidLibrary) apply false
+    alias(libs.plugins.daggerHiltAndroid) apply false
+    alias(libs.plugins.ksp) apply false
+    alias(libs.plugins.kotlinAndroid) apply false
 }
 
 buildscript {
@@ -12,7 +11,7 @@ buildscript {
         google()
     }
     dependencies {
-        classpath("androidx.navigation:navigation-safe-args-gradle-plugin:2.7.7")
+        classpath(libs.androidx.navigation.safeArgsGradlePlugin)
     }
 }
 

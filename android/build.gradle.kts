@@ -1,10 +1,8 @@
 plugins {
-    id("com.android.application")
-    id("org.jetbrains.kotlin.android")
-    id("kotlin-parcelize")
-    id("androidx.navigation.safeargs.kotlin")
-    id("com.google.dagger.hilt.android")
-    id("com.google.devtools.ksp")
+    alias(libs.plugins.androidApplication)
+    alias(libs.plugins.kotlinAndroid)
+    alias(libs.plugins.daggerHiltAndroid)
+    alias(libs.plugins.ksp)
 }
 
 android {
@@ -53,87 +51,81 @@ android {
 
 dependencies {
     // Android JDK Desugaring
-    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.4")
+    coreLibraryDesugaring(libs.android.desugar)
     // AndroidX Activity Compose Support
-    implementation("androidx.activity:activity-compose:1.8.2")
+    implementation(libs.androidx.compose.activity)
     // AndroidX Compose Foundation Components
-    implementation("androidx.compose.foundation:foundation:1.6.5")
+    implementation(libs.androidx.compose.foundation)
     // AndroidX Compose Foundation Layout Components
-    implementation("androidx.compose.foundation:foundation-layout:1.6.5")
+    implementation(libs.androidx.compose.foundation.layout)
     // AndroidX Compose Material Design Components
-    implementation("androidx.compose.material:material:1.6.5")
+    implementation(libs.androidx.compose.material)
+    // AndroidX Compose Material Design 3 Components
+    implementation(libs.androidx.compose.material3)
     // AndroidX Compose Runtime
-    implementation("androidx.compose.runtime:runtime:1.6.5")
+    implementation(libs.androidx.compose.runtime)
     // AndroidX Compose UI
-    implementation("androidx.compose.ui:ui:1.6.5")
+    implementation(libs.androidx.compose.ui)
     // AndroidX Compose UI Tools
-    implementation("androidx.compose.ui:ui-tooling:1.6.5")
-    // AndroidX Compose Material Design Version 3 Components
-    implementation("androidx.compose.material3:material3-android:1.2.1")
-    // AndroidX Core Kotlin Extensions
-    implementation("androidx.core:core-ktx:1.12.0")
-    // AndroidX Fragment Kotlin Extensions
-    implementation("androidx.fragment:fragment-ktx:1.6.2")
-    // AndroidX Lifecycle Extensions
-    implementation("androidx.lifecycle:lifecycle-extensions:2.2.0")
-    // AndroidX Lifecycle Extensions
-    implementation("androidx.lifecycle:lifecycle-runtime-compose:2.7.0")
+    implementation(libs.androidx.compose.ui.tools)
+    // AndroidX Core
+    implementation(libs.androidx.core)
+    // AndroidX Fragment
+    implementation(libs.androidx.fragment)
     // AndroidX Lifecycle Java 8 Common
-    implementation("androidx.lifecycle:lifecycle-common-java8:2.7.0")
-    // AndroidX Lifecycle Runtime Kotlin Extensions
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")
-    // AndroidX Lifecycle LiveData Kotlin Extensions
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.7.0")
-    // AndroidX Lifecycle ViewModel Kotlin Extensions
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
+    implementation(libs.androidx.lifecycle.common)
+    // AndroidX Lifecycle Extensions
+    implementation(libs.androidx.lifecycle.extensions)
+    // AndroidX Lifecycle Runtime
+    implementation(libs.androidx.lifecycle.runtime)
+    // AndroidX Lifecycle Runtime Compose Support
+    implementation(libs.androidx.lifecycle.runtime.compose)
+    // AndroidX Lifecycle View Model Support
+    implementation(libs.androidx.lifecycle.viewmodel)
     // AndroidX Navigation Compose Support
-    implementation("androidx.navigation:navigation-compose:2.7.7")
+    implementation(libs.androidx.navigation.compose)
     // AndroidX Navigation Fragment Stack
-    implementation("androidx.navigation:navigation-fragment-ktx:2.7.7")
+    implementation(libs.androidx.navigation.fragment)
     // AndroidX Navigation UI Stack
-    implementation("androidx.navigation:navigation-ui-ktx:2.7.7")
-    // AndroidX Preferences Kotlin Extensions
-    implementation("androidx.preference:preference-ktx:1.2.1")
+    implementation(libs.androidx.navigation.ui)
+    // AndroidX Preferences
+    implementation(libs.androidx.preference)
     // AndroidX Room Database Framework
-    implementation("androidx.room:room-runtime:2.6.1")
-    // AndroidX Room Database Kotlin Extensions
-    implementation("androidx.room:room-ktx:2.6.1")
+    implementation(libs.androidx.room)
     // AndroidX Room Database Annotation Processor
-    ksp("androidx.room:room-compiler:2.6.1")
-    // AndroidX Swipe Refresh Layout
-    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
-    // AndroidX WorkManager Kotlin Extensions
-    implementation("androidx.work:work-runtime-ktx:2.9.0")
+    ksp(libs.androidx.room.compiler)
+    // AndroidX Work Manager
+    implementation(libs.androidx.work.runtime)
     // Hilt Dependency Injection Framework
-    implementation("com.google.dagger:hilt-android:2.51.1")
+    implementation(libs.hilt.android)
     // Hilt Dependency Injection Annotation Processor
-    ksp("com.google.dagger:hilt-android-compiler:2.51.1")
+    ksp(libs.hilt.android.compiler)
     // Hilt Dependency Injection Compose Navigation Support
-    implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
+    implementation(libs.hilt.androidx.navigation.compose)
     // Hilt Dependency Injection Worker Support
-    implementation("androidx.hilt:hilt-work:1.2.0")
+    implementation(libs.hilt.androidx.work)
     // Hilt Dependency Injection AndroidX Annotation Processor
-    ksp("androidx.hilt:hilt-compiler:1.2.0")
+    ksp(libs.hilt.androidx.compiler)
     // KotlinX Coroutines Core
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.0")
+    implementation(libs.kotlinx.coroutines.core)
     // KotlinX Coroutines Android
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.0")
+    implementation(libs.kotlinx.coroutines.android)
     // KotlinX Serialization Json
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.2.2")
+    implementation(libs.kotlinx.serialization.json)
     // Ktor HTTP Android Client
-    implementation("io.ktor:ktor-client-android:2.3.10")
-    // Ktor HTTP Logging
-    implementation("io.ktor:ktor-client-logging:2.3.10")
+    implementation(libs.ktor.client.android)
+    // Ktor HTTP Logging Support
+    implementation(libs.ktor.client.logging)
     // OpenStreetMaps Map View
-    implementation("org.osmdroid:osmdroid-android:6.1.18")
+    implementation(libs.osm)
     // OpenStreetMaps Extras
-    implementation("com.github.MKergall:osmbonuspack:6.9.0")
+    implementation(libs.osm.extras)
     // Simple Logging Facade
-    implementation("org.slf4j:slf4j-android:1.7.32")
+    implementation(libs.slf4j)
     // JUnit
-    testImplementation("junit:junit:4.13.2")
+    testImplementation(libs.junit)
     // AndroidX JUnit
-    androidTestImplementation("androidx.test.ext:junit:1.1.5")
+    androidTestImplementation(libs.junit.androidx)
     // AndroidX Espresso Core
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+    androidTestImplementation(libs.espresso.androidx)
 }
